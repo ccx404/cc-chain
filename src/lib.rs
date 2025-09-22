@@ -4,7 +4,6 @@
 //! to participate as lightweight nodes while maintaining security and performance
 //! that exceeds existing blockchain solutions.
 
-pub mod blueprint;
 pub mod cli;
 pub mod consensus;
 pub mod contracts;

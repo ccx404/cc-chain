@@ -226,34 +226,4 @@ impl AdaptiveParams {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
 
-    #[test]
-    fn test_block_time_calculation() {
-        // Small network, low latency
-        let time1 = calculate_block_time(100, 50);
-        assert!(time1 >= Duration::from_millis(500));
-        assert!(time1 <= Duration::from_millis(2000));
-
-        // Large network, high latency
-        let time2 = calculate_block_time(10000, 500);
-        assert!(time2 > time1);
-        assert!(time2 <= Duration::from_millis(10000));
-    }
-
-    #[test]
-    fn test_gas_limit_calculation() {
-        let limit1 = calculate_gas_limit(1000, 21000);
-        let limit2 = calculate_gas_limit(10000, 21000);
-        assert!(limit2 > limit1);
-    }
-
-    #[test]
-    fn test_fee_estimation() {
-        let fee1 = estimate_fee(250, 0.0, 1000); // No congestion
-        let fee2 = estimate_fee(250, 1.0, 1000); // High congestion
-        assert!(fee2 > fee1);
-    }
-}

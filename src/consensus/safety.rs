@@ -7,7 +7,7 @@
 //! - Automatic recovery procedures
 //! - Performance degradation detection
 
-use crate::core::{CCError, Result};
+use crate::core::Result;
 use crate::crypto::{CCPublicKey, Hash};
 use std::collections::{HashMap, VecDeque};
 use std::time::{Duration, Instant};

@@ -1,16 +1,8 @@
-use crate::{
-    consensus::{CCConsensus, ConsensusMessage},
-    core::crypto::{CCKeypair, CCPublicKey},
-    core::state::StateManager,
-    core::transaction::Transaction,
-    core::utils::{AdaptiveParams, PerformanceMonitor},
-    core::{
-        block::{Block, Blockchain},
-        error::Result,
-    },
-    networking::network::{LightNetworkClient, NetworkManager, NetworkMessage},
-    storage::mempool::Mempool,
-};
+use cc_chain_consensus::{CCConsensus, ConsensusMessage};
+use cc_chain_sdk::{CCKeypair, CCPublicKey, StateManager, Transaction, Block, Blockchain, Result};
+use cc_chain_sdk::utils::{AdaptiveParams, PerformanceMonitor};
+use cc_chain_port::network::{LightNetworkClient, NetworkManager, NetworkMessage};
+use cc_chain_storage::Mempool;
 use std::net::SocketAddr;
 use std::sync::Arc;
 use tokio::sync::mpsc;

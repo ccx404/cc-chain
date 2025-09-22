@@ -1,0 +1,25 @@
+[package]
+name = "cc-chain-vm"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.89.0"
+description = "CC Chain Virtual Machine - Smart contract execution and WASM runtime"
+license = "MIT"
+repository = "https://github.com/ccx404/cc-chain"
+keywords = ["blockchain", "vm", "wasm", "smart-contracts"]
+categories = ["cryptography", "wasm", "development-tools"]
+
+[dependencies]
+# Local workspace dependencies
+cc-chain-sdk = { path = "../cc-chain-sdk" }
+
+# External workspace dependencies
+serde = { workspace = true }
+serde_json = { workspace = true }
+blake3 = { workspace = true }
+hex = { workspace = true }
+uuid = { workspace = true }
+parking_lot = { workspace = true }
+dashmap = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }

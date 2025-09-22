@@ -3,26 +3,38 @@
 //! CC Chain is designed for high efficiency and fast speed, allowing normal PCs
 //! to participate as lightweight nodes while maintaining security and performance
 //! that exceeds existing blockchain solutions.
+//!
+//! This is the main crate that re-exports functionality from specialized sub-crates:
+//! - `cc-chain-sdk`: Core types, cryptography, and utilities  
+//! - `cc-chain-consensus`: BFT consensus implementation with safety system
+//! - `cc-chain-wallet`: Lightweight client and wallet functionality
+//! - `cc-chain-port`: Networking and cross-chain bridge functionality
+//! - `cc-chain-vm`: Smart contract execution and WASM runtime
+//! - `cc-chain-storage`: Memory pool and storage management
 
 pub mod cli;
-pub mod consensus;
-pub mod contracts;
-pub mod core;
-pub mod networking;
-pub mod storage;
+
+// Re-export from sub-crates
+pub use cc_chain_sdk as core;
+pub use cc_chain_consensus as consensus;
+pub use cc_chain_wallet as wallet;
+pub use cc_chain_port as networking;
+pub use cc_chain_vm as vm;
+pub use cc_chain_storage as storage;
 
 // Re-export commonly used types for convenience
-pub use core::{Block, BlockHeader, StateManager, Transaction};
-pub use core::{CCError, CCKeypair, CCPublicKey, CCSignature, Hash, Result};
+pub use cc_chain_sdk::{Block, BlockHeader, StateManager, Transaction};
+pub use cc_chain_sdk::{CCError, CCKeypair, CCPublicKey, CCSignature, Hash, Result};
 
 // Legacy re-exports for backward compatibility (will be deprecated)
 pub use cli::node;
-pub use contracts::vm;
-pub use core::block;
-pub use core::crypto;
-pub use core::error;
-pub use core::state;
-pub use core::transaction;
-pub use core::utils;
-pub use networking::{bridge, network};
-pub use storage::mempool;
+pub use cc_chain_vm as contracts;
+pub use cc_chain_sdk as block;
+pub use cc_chain_sdk as crypto;
+pub use cc_chain_sdk as error;
+pub use cc_chain_sdk as state;
+pub use cc_chain_sdk as transaction;
+pub use cc_chain_sdk as utils;
+pub use cc_chain_port as bridge;
+pub use cc_chain_port as network;
+pub use cc_chain_storage as mempool;

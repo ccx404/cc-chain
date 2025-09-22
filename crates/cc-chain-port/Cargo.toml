@@ -1,0 +1,22 @@
+[package]
+name = "cc-chain-port"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.89.0"
+description = "CC Chain Port - Networking and cross-chain bridge functionality"
+license = "MIT"
+repository = "https://github.com/ccx404/cc-chain"
+keywords = ["blockchain", "networking", "bridge", "p2p"]
+categories = ["network-programming"]
+
+[dependencies]
+# Local workspace dependencies
+cc-chain-sdk = { path = "../cc-chain-sdk" }
+
+# External workspace dependencies
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+uuid = { workspace = true }

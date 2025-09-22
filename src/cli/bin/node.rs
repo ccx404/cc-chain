@@ -1,7 +1,7 @@
 use cc_chain::{
-    crypto::CCKeypair,
-    node::{CCNode, NodeConfig, NodeType},
-    transaction::Transaction,
+    CCKeypair,
+    cli::node::{CCNode, NodeConfig, NodeType},
+    Transaction,
     vm::{SmartContractVM, VMConfig},
     Result,
 };

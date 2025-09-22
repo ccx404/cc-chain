@@ -1,0 +1,21 @@
+[package]
+name = "cc-chain-wallet"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.89.0"
+description = "CC Chain Wallet - Lightweight client and wallet functionality"
+license = "MIT"
+repository = "https://github.com/ccx404/cc-chain"
+keywords = ["blockchain", "wallet", "client"]
+categories = ["cryptography", "network-programming"]
+
+[dependencies]
+# Local workspace dependencies
+cc-chain-sdk = { path = "../cc-chain-sdk" }
+
+# External workspace dependencies
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }

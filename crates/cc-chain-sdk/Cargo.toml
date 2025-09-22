@@ -1,0 +1,29 @@
+[package]
+name = "cc-chain-sdk"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.89.0"
+description = "CC Chain SDK - Core types, cryptography, and utilities"
+license = "MIT"
+repository = "https://github.com/ccx404/cc-chain"
+keywords = ["blockchain", "sdk", "cryptography", "core"]
+categories = ["cryptography", "development-tools"]
+
+[dependencies]
+# Workspace dependencies
+blake3 = { workspace = true }
+ed25519-dalek = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_bytes = { workspace = true }
+bincode = { workspace = true }
+hex = { workspace = true }
+rand = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+uuid = { workspace = true }
+bytes = { workspace = true }
+parking_lot = { workspace = true }
+dashmap = { workspace = true }
+lru = { workspace = true }
+tokio = { workspace = true }

@@ -1,24 +1,16 @@
-[package]
-name = "cc-chain"
-version = "1.0.0"
-edition = "2021"
-rust-version = "1.89.0"
-description = "CC Chain - High efficiency blockchain with modified BFT consensus"
-license = "MIT"
-repository = "https://github.com/ccx404/cc-chain"
-readme = "README.md"
-keywords = ["blockchain", "consensus", "bft", "smart-contracts", "cryptocurrency"]
-categories = ["cryptography", "network-programming", "web-programming"]
+[workspace]
+resolver = "2"
+members = [
+    ".",
+    "crates/cc-chain-sdk",
+    "crates/cc-chain-consensus", 
+    "crates/cc-chain-wallet",
+    "crates/cc-chain-port",
+    "crates/cc-chain-vm",
+    "crates/cc-chain-storage",
+]
 
-[[bin]]
-name = "cc-node"
-path = "src/cli/bin/node.rs"
-
-[[example]]
-name = "ccbft_example"
-path = "examples/ccbft_example.rs"
-
-[dependencies]
+[workspace.dependencies]
 # Core async runtime
 tokio = { version = "1.47", features = ["full"] }
 
@@ -55,6 +47,50 @@ anyhow = "1.0"
 # Concurrency
 crossbeam = "0.8"
 rayon = "1.11"
+
+[package]
+name = "cc-chain"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.89.0"
+description = "CC Chain - High efficiency blockchain with modified BFT consensus"
+license = "MIT"
+repository = "https://github.com/ccx404/cc-chain"
+readme = "README.md"
+keywords = ["blockchain", "consensus", "bft", "smart-contracts", "cryptocurrency"]
+categories = ["cryptography", "network-programming", "web-programming"]
+
+[[bin]]
+name = "cc-node"
+path = "src/cli/bin/node.rs"
+
+[[example]]
+name = "ccbft_example"
+path = "examples/ccbft_example.rs"
+
+[dependencies]
+# Local workspace dependencies
+cc-chain-sdk = { path = "crates/cc-chain-sdk" }
+cc-chain-consensus = { path = "crates/cc-chain-consensus" }
+cc-chain-wallet = { path = "crates/cc-chain-wallet" }
+cc-chain-port = { path = "crates/cc-chain-port" }
+cc-chain-vm = { path = "crates/cc-chain-vm" }
+cc-chain-storage = { path = "crates/cc-chain-storage" }
+
+# External workspace dependencies  
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+clap = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+uuid = { workspace = true }
+parking_lot = { workspace = true }
+dashmap = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+crossbeam = { workspace = true }
+hex = { workspace = true }
 
 
 

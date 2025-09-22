@@ -1,24 +1,22 @@
-[package]
-name = "cc-chain"
+[workspace]
+resolver = "2"
+members = [
+    "cc-core",
+    "cc-consensus", 
+    # "cc-contracts",  # Temporarily disabled due to compilation issues
+    "cc-networking",
+    "cc-storage",
+    "cc-cli"
+]
+
+[workspace.package]
 version = "1.0.0"
 edition = "2021"
 rust-version = "1.89.0"
-description = "CC Chain - High efficiency blockchain with modified BFT consensus"
 license = "MIT"
 repository = "https://github.com/ccx404/cc-chain"
-readme = "README.md"
-keywords = ["blockchain", "consensus", "bft", "smart-contracts", "cryptocurrency"]
-categories = ["cryptography", "network-programming", "web-programming"]
 
-[[bin]]
-name = "cc-node"
-path = "src/cli/bin/node.rs"
-
-[[example]]
-name = "ccbft_example"
-path = "examples/ccbft_example.rs"
-
-[dependencies]
+[workspace.dependencies]
 # Core async runtime
 tokio = { version = "1.47", features = ["full"] }
 

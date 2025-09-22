@@ -19,7 +19,7 @@ pub use cc_chain_sdk as core;
 pub use cc_chain_consensus as consensus;
 pub use cc_chain_wallet as wallet;
 pub use cc_chain_port as networking;
-pub use cc_chain_vm as vm;
+// pub use cc_chain_vm as vm; // TODO: Fix VM crate and re-enable
 pub use cc_chain_storage as storage;
 
 // Re-export commonly used types for convenience
@@ -28,7 +28,7 @@ pub use cc_chain_sdk::{CCError, CCKeypair, CCPublicKey, CCSignature, Hash, Resul
 
 // Legacy re-exports for backward compatibility (will be deprecated)
 pub use cli::node;
-pub use cc_chain_vm as contracts;
+// pub use cc_chain_vm as contracts; // TODO: Fix VM crate and re-enable
 pub use cc_chain_sdk as block;
 pub use cc_chain_sdk as crypto;
 pub use cc_chain_sdk as error;

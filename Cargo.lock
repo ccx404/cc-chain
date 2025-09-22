@@ -195,7 +195,6 @@ dependencies = [
  "cc-chain-port",
  "cc-chain-sdk",
  "cc-chain-storage",
- "cc-chain-vm",
  "cc-chain-wallet",
  "clap",
  "crossbeam",
@@ -234,6 +233,7 @@ name = "cc-chain-port"
 version = "1.0.0"
 dependencies = [
  "bincode",
+ "cc-chain-consensus",
  "cc-chain-sdk",
  "dashmap",
  "parking_lot",

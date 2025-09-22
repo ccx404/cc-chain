@@ -1,5 +1,6 @@
 use cc_chain_consensus::{CCConsensus, ConsensusMessage};
-use cc_chain_sdk::{CCKeypair, CCPublicKey, StateManager, Transaction, Block, Blockchain, Result};
+use cc_chain_sdk::{CCKeypair, CCPublicKey, StateManager, Transaction, Block, Result};
+use cc_chain_sdk::block::Blockchain;
 use cc_chain_sdk::utils::{AdaptiveParams, PerformanceMonitor};
 use cc_chain_port::network::{LightNetworkClient, NetworkManager, NetworkMessage};
 use cc_chain_storage::Mempool;
@@ -391,12 +392,12 @@ impl CCNode {
     }
 
     /// Get performance metrics
-    pub fn get_performance_metrics(&self) -> crate::utils::PerformanceMetrics {
+    pub fn get_performance_metrics(&self) -> cc_chain_sdk::utils::PerformanceMetrics {
         self.performance_monitor.get_metrics()
     }
 
     /// Get network statistics
-    pub fn get_network_stats(&self) -> Option<crate::network::NetworkStats> {
+    pub fn get_network_stats(&self) -> Option<cc_chain_port::network::NetworkStats> {
         self.network.as_ref().map(|n| n.get_stats())
     }
 }

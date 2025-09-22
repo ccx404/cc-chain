@@ -12,6 +12,7 @@ categories = ["network-programming"]
 [dependencies]
 # Local workspace dependencies
 cc-chain-sdk = { path = "../cc-chain-sdk" }
+cc-chain-consensus = { path = "../cc-chain-consensus" }
 
 # External workspace dependencies
 tokio = { workspace = true }

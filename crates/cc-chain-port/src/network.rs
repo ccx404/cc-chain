@@ -1,15 +1,10 @@
 use cc_chain_sdk::{Block, Transaction, Result, Hash, CCPublicKey};
+use cc_chain_consensus::ConsensusMessage;
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 use std::sync::Arc;
 use tokio::net::{TcpListener, TcpStream};
 use tokio::sync::mpsc;
-
-/// Placeholder for ConsensusMessage (should come from consensus crate)
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub enum ConsensusMessage {
-    Placeholder,
-}
 
 /// Network message types
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -2,7 +2,7 @@ use cc_chain::{
     CCKeypair,
     cli::node::{CCNode, NodeConfig, NodeType},
     Transaction,
-    vm::{SmartContractVM, VMConfig},
+    // vm::{SmartContractVM, VMConfig}, // TODO: Fix VM and re-enable
     Result,
 };
 use clap::{Parser, Subcommand};
@@ -427,39 +427,13 @@ async fn send_transaction(
     Ok(())
 }
 
-async fn handle_contract_command(command: ContractCommands) -> Result<()> {
-    match command {
-        ContractCommands::Deploy {
-            bytecode,
-            args,
-            gas_limit,
-            key,
-            rpc: _rpc,
-        } => deploy_contract(bytecode, args, gas_limit, key).await,
-
-        ContractCommands::Call {
-            contract,
-            function,
-            args,
-            gas_limit,
-            key,
-            rpc: _rpc,
-        } => call_contract(contract, function, args, gas_limit, key).await,
-
-        ContractCommands::Query {
-            contract,
-            key,
-            rpc: _rpc,
-        } => query_contract_storage(contract, key).await,
-
-        ContractCommands::Estimate {
-            operation,
-            target,
-            function,
-            args,
-        } => estimate_gas(operation, target, function, args).await,
-    }
+async fn handle_contract_command(_command: ContractCommands) -> Result<()> {
+    // TODO: Re-implement when VM is fixed
+    info!("Contract functionality temporarily disabled - VM crate needs to be fixed");
+    Ok(())
 }
+
+/* Commented out until VM is fixed
 
 async fn deploy_contract(
     bytecode_path: PathBuf,
@@ -631,3 +605,5 @@ async fn estimate_gas(
 
     Ok(())
 }
+
+*/

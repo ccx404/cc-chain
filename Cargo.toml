@@ -74,7 +74,7 @@ cc-chain-sdk = { path = "crates/cc-chain-sdk" }
 cc-chain-consensus = { path = "crates/cc-chain-consensus" }
 cc-chain-wallet = { path = "crates/cc-chain-wallet" }
 cc-chain-port = { path = "crates/cc-chain-port" }
-cc-chain-vm = { path = "crates/cc-chain-vm" }
+# cc-chain-vm = { path = "crates/cc-chain-vm" } # TODO: Fix VM crate and re-enable
 cc-chain-storage = { path = "crates/cc-chain-storage" }
 
 # External workspace dependencies  

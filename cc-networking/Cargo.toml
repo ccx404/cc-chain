@@ -12,6 +12,11 @@ categories = ["network-programming", "cryptography"]
 [dependencies]
 # Local dependencies
 cc-core = { path = "../cc-core" }
+cc-consensus = { path = "../cc-consensus" }
+# cc-contracts = { path = "../cc-contracts" }  # Temporarily disabled
+
+# Utilities
+uuid = { workspace = true }
 
 # Core async runtime
 tokio = { workspace = true }

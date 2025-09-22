@@ -2,13 +2,13 @@ use cc_core::{
     crypto::{CCKeypair, CCPublicKey},
     state::StateManager,
     transaction::Transaction,
-    utils::{AdaptiveParams, PerformanceMonitor},
+    utils::{AdaptiveParams, PerformanceMonitor, PerformanceMetrics},
     block::{Block, Blockchain},
     error::Result,
 };
 use cc_consensus::{CCConsensus, ConsensusMessage};
-use cc_networking::network::{LightNetworkClient, NetworkManager, NetworkMessage};
-use cc_storage::mempool::Mempool;
+use cc_storage::mempool::{Mempool, MempoolStats};
+use cc_networking::network::{LightNetworkClient, NetworkManager, NetworkMessage, NetworkStats};
 use std::net::SocketAddr;
 use std::sync::Arc;
 use tokio::sync::mpsc;
@@ -392,17 +392,17 @@ impl CCNode {
     }
 
     /// Get mempool statistics
-    pub fn get_mempool_stats(&self) -> crate::mempool::MempoolStats {
+    pub fn get_mempool_stats(&self) -> MempoolStats {
         self.mempool.stats()
     }
 
     /// Get performance metrics
-    pub fn get_performance_metrics(&self) -> crate::utils::PerformanceMetrics {
+    pub fn get_performance_metrics(&self) -> PerformanceMetrics {
         self.performance_monitor.get_metrics()
     }
 
     /// Get network statistics
-    pub fn get_network_stats(&self) -> Option<crate::network::NetworkStats> {
+    pub fn get_network_stats(&self) -> Option<NetworkStats> {
         self.network.as_ref().map(|n| n.get_stats())
     }
 }

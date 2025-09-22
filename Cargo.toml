@@ -3,7 +3,7 @@ resolver = "2"
 members = [
     "cc-core",
     "cc-consensus", 
-    "cc-contracts",
+    # "cc-contracts",  # Temporarily disabled due to compilation issues
     "cc-networking",
     "cc-storage",
     "cc-cli"

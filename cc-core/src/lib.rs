@@ -20,3 +20,4 @@ pub use crypto::{CCKeypair, CCPublicKey, CCSignature, Hash};
 pub use error::{CCError, Result};
 pub use state::StateManager;
 pub use transaction::Transaction;
+pub use utils::{AdaptiveParams, PerformanceMonitor, PerformanceMetrics};

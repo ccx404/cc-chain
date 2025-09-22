@@ -8,4 +8,4 @@
 pub mod mempool;
 
 // Re-export storage types
-pub use mempool::Mempool;
+pub use mempool::{Mempool, MempoolStats};

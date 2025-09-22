@@ -192,7 +192,6 @@ version = "1.0.0"
 dependencies = [
  "anyhow",
  "cc-consensus",
- "cc-contracts",
  "cc-core",
  "cc-networking",
  "cc-storage",
@@ -226,24 +225,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cc-contracts"
-version = "1.0.0"
-dependencies = [
- "anyhow",
- "bincode",
- "cc-core",
- "dashmap",
- "hex",
- "parking_lot",
- "serde",
- "serde_json",
- "thiserror",
- "tokio",
- "tracing",
- "uuid",
-]
-
-[[package]]
 name = "cc-core"
 version = "1.0.0"
 dependencies = [
@@ -271,6 +252,7 @@ version = "1.0.0"
 dependencies = [
  "anyhow",
  "bincode",
+ "cc-consensus",
  "cc-core",
  "dashmap",
  "hex",
@@ -280,6 +262,7 @@ dependencies = [
  "thiserror",
  "tokio",
  "tracing",
+ "uuid",
 ]
 
 [[package]]

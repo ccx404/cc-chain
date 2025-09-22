@@ -5,10 +5,13 @@
 //! Bitcoin, and other compatible chains.
 
 use cc_core::{CCPublicKey, CCSignature, CCError, Result};
-use cc_contracts::vm::contract::ContractAddress;
+// use cc_contracts::vm::contract::ContractAddress;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::time::{SystemTime, UNIX_EPOCH};
+
+/// Contract address type (temporary placeholder)
+pub type ContractAddress = String;
 
 /// Supported blockchain networks for cross-chain operations
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]

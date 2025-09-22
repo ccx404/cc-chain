@@ -10,4 +10,4 @@ pub mod network;
 
 // Re-export main networking types
 pub use bridge::CrossChainBridge;
-pub use network::NetworkManager;
+pub use network::{NetworkManager, NetworkStats};

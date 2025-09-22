@@ -17,7 +17,7 @@ path = "src/bin/node.rs"
 # Local dependencies
 cc-core = { path = "../cc-core" }
 cc-consensus = { path = "../cc-consensus" }
-cc-contracts = { path = "../cc-contracts" }
+# cc-contracts = { path = "../cc-contracts" }  # Temporarily disabled
 cc-networking = { path = "../cc-networking" }
 cc-storage = { path = "../cc-storage" }
 

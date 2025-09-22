@@ -27,7 +27,7 @@ pub enum NetworkMessage {
     /// Peer list response
     PeerListResponse(Vec<SocketAddr>),
     /// Block request
-    BlockRequest(crate::crypto::Hash),
+    BlockRequest(Hash),
     /// Block response
     BlockResponse(Option<Block>),
     /// Sync request for range of blocks
@@ -384,7 +384,7 @@ impl LightNetworkClient {
     }
 
     /// Request block by hash
-    pub async fn request_block(&self, block_hash: crate::crypto::Hash) -> Result<Option<Block>> {
+    pub async fn request_block(&self, block_hash: Hash) -> Result<Option<Block>> {
         let mut stream = self.connect().await?;
 
         let request = NetworkMessage::BlockRequest(block_hash);

@@ -1,4 +1,4 @@
-use cc_core::{transaction::{Transaction, TransactionPool}, Result, Hash};
+use cc_core::{transaction::{Transaction, TransactionPool}, Result, Hash, CCError};
 
 /// Memory pool for pending transactions with prioritization
 pub struct Mempool {
@@ -31,7 +31,7 @@ impl Mempool {
         {
             let current_size = *self.current_size.read();
             if current_size + tx_size > self.max_size_bytes {
-                return Err(crate::CCError::Transaction(
+                return Err(CCError::Transaction(
                     "Mempool size limit exceeded".to_string(),
                 ));
             }
@@ -56,7 +56,7 @@ impl Mempool {
     }
 
     /// Remove transaction from mempool
-    pub fn remove_transaction(&self, tx_hash: &crate::crypto::Hash) -> Option<Transaction> {
+    pub fn remove_transaction(&self, tx_hash: &Hash) -> Option<Transaction> {
         if let Some(tx) = self.pool.remove_transaction(tx_hash) {
             let tx_size = tx.size();
 
@@ -100,7 +100,7 @@ impl Mempool {
     }
 
     /// Get transaction by hash
-    pub fn get_transaction(&self, _tx_hash: &crate::crypto::Hash) -> Option<Transaction> {
+    pub fn get_transaction(&self, _tx_hash: &Hash) -> Option<Transaction> {
         // This is a simplified implementation - in practice we'd need to store transactions
         // in the pool with hash indexing
         None
@@ -114,7 +114,7 @@ impl Mempool {
         // Check if already in mempool
         let tx_hash = tx.hash();
         if self.fee_rates.contains_key(&tx_hash) {
-            return Err(crate::CCError::Transaction(
+            return Err(CCError::Transaction(
                 "Transaction already in mempool".to_string(),
             ));
         }

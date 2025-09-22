@@ -1,4 +1,4 @@
-use core::{
+use cc_core::{
     crypto::{CCKeypair, CCPublicKey},
     state::StateManager,
     transaction::Transaction,

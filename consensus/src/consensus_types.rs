@@ -1,4 +1,4 @@
-use core::{Block, CCError, Result, CCKeypair, CCPublicKey, CCSignature, Hash};
+use cc_core::{Block, CCError, Result, CCKeypair, CCPublicKey, CCSignature, Hash};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::time::{Duration, Instant};

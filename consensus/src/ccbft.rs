@@ -12,7 +12,7 @@
 //! - Adaptive timeouts based on network conditions
 //! - Enhanced safety guarantees
 
-use core::{Block, CCError, Result, CCKeypair, CCPublicKey, CCSignature, Hash};
+use cc_core::{Block, CCError, Result, CCKeypair, CCPublicKey, CCSignature, Hash};
 use crate::safety::{SafetySystem, ValidatorAction};
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
@@ -1342,7 +1342,7 @@ pub struct QueueLengths {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use core::crypto::CCKeypair;
+    use cc_core::crypto::CCKeypair;
     use crate::safety::{SafetySystem, SafetyConfig};
     use std::sync::Arc;
 

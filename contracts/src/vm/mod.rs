@@ -19,7 +19,7 @@ pub use interop::{CallContext, InterContractCall, InterContractManager};
 pub use runtime::WasmRuntime;
 pub use storage::ContractStorage;
 
-use core::Result;
+use cc_core::Result;
 use serde::{Deserialize, Serialize};
 
 /// Virtual Machine for executing smart contracts

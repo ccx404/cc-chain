@@ -2,7 +2,7 @@
 //!
 //! This module defines the structure and lifecycle of smart contracts.
 
-use core::{Hash, CCError, Result};
+use cc_core::{Hash, CCError, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 

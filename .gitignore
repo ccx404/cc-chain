@@ -1,0 +1,53 @@
+# Build artifacts
+/target/
+**/*.rs.bk
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node data directories
+/data/
+/validator-data/
+/full-node-data/
+/light-node-data/
+
+# Key files (NEVER commit these)
+*.key
+*.pem
+*.p12
+*.keystore
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Benchmark results
+/benches/results/
+criterion/
+
+# Coverage reports
+tarpaulin-report.html
+cobertura.xml
+lcov.info
+
+# Flamegraph files
+flamegraph.svg
+perf.data*
+
+# Lock files for editors
+.#*
+
+# Cargo local configuration
+.cargo/config.toml

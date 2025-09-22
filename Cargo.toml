@@ -1,12 +1,26 @@
 [workspace]
 resolver = "2"
 members = [
-    "cc-core",
-    "cc-consensus", 
-    # "cc-contracts",  # Temporarily disabled due to compilation issues
-    "cc-networking",
-    "cc-storage",
-    "cc-cli"
+    "core",
+    "consensus", 
+    # "contracts",  # Temporarily disabled due to compilation issues
+    "networking",
+    "storage",
+    "cli",
+    "sdk",
+    "docs",
+    "wallet",
+    "rpc",
+    "api",
+    "bridge",
+    "explorer",
+    "monitor",
+    "validator",
+    "indexer",
+    "gateway",
+    "metrics",
+    "testing",
+    "tools"
 ]
 
 [workspace.package]

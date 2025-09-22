@@ -1,0 +1,44 @@
+[package]
+name = "cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain node and CLI tools"
+keywords = ["blockchain", "cli", "node", "tools"]
+categories = ["command-line-utilities", "network-programming"]
+
+[[bin]]
+name = "cc-node"
+path = "src/bin/node.rs"
+
+[dependencies]
+# Local dependencies
+core = { path = "../core" }
+consensus = { path = "../consensus" }
+# contracts = { path = "../contracts" }  # Temporarily disabled
+networking = { path = "../networking" }
+storage = { path = "../storage" }
+
+# Core async runtime
+tokio = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# CLI
+clap = { workspace = true }
+
+# Utilities
+parking_lot = { workspace = true }
+hex = { workspace = true }
+
+# Error handling
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# Logging
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

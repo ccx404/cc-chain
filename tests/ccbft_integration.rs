@@ -6,9 +6,9 @@
 //! - View changes and recovery
 //! - Performance under load
 
-use cc_chain::consensus::{CCConsensus, ccbft::*};
-use cc_chain::crypto::CCKeypair;
-use cc_chain::core::Result;
+use consensus::{CCConsensus, ccbft::*};
+use core::crypto::CCKeypair;
+use core::Result;
 use std::collections::HashMap;
 use std::time::Duration;
 use tokio::time;

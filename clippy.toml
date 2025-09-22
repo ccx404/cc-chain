@@ -1,0 +1,23 @@
+# CC Chain Clippy Configuration
+# This file configures clippy behavior for development
+
+# Cognitive complexity threshold - allow more complex functions for blockchain code
+cognitive-complexity-threshold = 50
+
+# Too many arguments - blockchain functions often need many parameters
+too-many-arguments-threshold = 10
+
+# Too many lines - some functions in blockchain can be longer
+too-many-lines-threshold = 200
+
+# Type complexity - blockchain types can be complex
+type-complexity-threshold = 500
+
+# Avoid breaking exported API
+avoid-breaking-exported-api = true
+
+# Enable documentation lints
+missing-docs-in-crate-items = true
+
+# Check private items for consistency
+check-private-items = true

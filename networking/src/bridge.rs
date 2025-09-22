@@ -4,7 +4,7 @@
 //! enabling interoperability with other blockchain networks including Ethereum,
 //! Bitcoin, and other compatible chains.
 
-use core::{CCPublicKey, CCSignature, CCError, Result};
+use cc_core::{CCPublicKey, CCSignature, CCError, Result};
 // use contracts::vm::contract::ContractAddress;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

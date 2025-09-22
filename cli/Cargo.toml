@@ -15,7 +15,7 @@ path = "src/bin/node.rs"
 
 [dependencies]
 # Local dependencies
-core = { path = "../core" }
+cc-core = { path = "../core" }
 consensus = { path = "../consensus" }
 # contracts = { path = "../contracts" }  # Temporarily disabled
 networking = { path = "../networking" }

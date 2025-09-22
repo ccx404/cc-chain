@@ -1,4 +1,4 @@
-use core::{Block, Transaction, Result, Hash};
+use cc_core::{Block, Transaction, Result, Hash};
 use consensus::ConsensusMessage;
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;

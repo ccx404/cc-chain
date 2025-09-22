@@ -1,4 +1,4 @@
-use core::{crypto::CCKeypair, transaction::Transaction, Result, CCError, crypto::CCPublicKey};
+use cc_core::{crypto::CCKeypair, transaction::Transaction, Result, CCError, crypto::CCPublicKey};
 use cli::node::{CCNode, NodeConfig, NodeType};
 // use contracts::vm::{SmartContractVM, VMConfig};
 use clap::{Parser, Subcommand};

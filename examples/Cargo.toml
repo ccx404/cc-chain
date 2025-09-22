@@ -1,0 +1,20 @@
+[package]
+name = "cc-chain-examples"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "basic_transaction"
+path = "basic_transaction.rs"
+
+[[bin]]
+name = "key_generation"
+path = "key_generation.rs"
+
+[dependencies]
+cc-core = { path = "../core" }
+tokio = { workspace = true }
+hex = { workspace = true }
+bincode = { workspace = true }
+serde_json = { workspace = true }
+chrono = { version = "0.4", features = ["serde"] }

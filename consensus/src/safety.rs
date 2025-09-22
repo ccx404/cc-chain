@@ -7,7 +7,7 @@
 //! - Automatic recovery procedures
 //! - Performance degradation detection
 
-use core::{Result, CCPublicKey, Hash};
+use cc_core::{Result, CCPublicKey, Hash};
 use std::collections::{HashMap, VecDeque};
 use std::time::{Duration, Instant};
 use parking_lot::RwLock;

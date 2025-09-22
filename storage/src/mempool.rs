@@ -1,4 +1,4 @@
-use core::{transaction::{Transaction, TransactionPool}, Result, Hash, CCError};
+use cc_core::{transaction::{Transaction, TransactionPool}, Result, Hash, CCError};
 
 /// Memory pool for pending transactions with prioritization
 pub struct Mempool {

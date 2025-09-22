@@ -11,7 +11,7 @@ categories = ["cryptography", "algorithms"]
 
 [dependencies]
 # Local dependencies
-core = { path = "../core" }
+cc-core = { path = "../core" }
 
 # Core async runtime
 tokio = { workspace = true }

@@ -20,7 +20,8 @@ members = [
     "gateway",
     "metrics",
     "testing",
-    "tools"
+    "tools",
+    "examples"
 ]
 
 [workspace.package]

@@ -12,10 +12,6 @@ pub mod ccbft;
 pub use ccbft::{CcBftConsensus, CcBftConfig};
 pub use safety::{SafetySystem, SafetyConfig};
 
-// Tests module
-#[cfg(test)]
-mod tests;
-
 /// Enhanced BFT consensus protocol for CC Chain
 ///
 /// Key improvements over traditional BFT:

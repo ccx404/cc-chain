@@ -56,10 +56,3 @@ rayon = "1.11"
 criterion = "0.5"
 tempfile = "3.8"
 
-[[bench]]
-name = "consensus_bench"
-harness = false
-
-[[bench]]
-name = "transaction_bench"
-harness = false

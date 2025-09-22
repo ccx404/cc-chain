@@ -267,6 +267,19 @@ pub struct EfficiencyMetrics {
     pub consensus_overhead: f64,
 }
 
+/// Consensus engine recommendations for optimization
+#[derive(Debug, Clone)]
+pub struct ConsensusRecommendations {
+    pub current_engine: String,
+    pub validator_count: usize,
+    pub total_stake: u64,
+    pub average_tps: f64,
+    pub average_latency: Duration,
+    pub safety_incidents: u64,
+    pub upgrade_recommended: bool,
+    pub recommendations: Vec<String>,
+}
+
 impl Default for ConsensusParams {
     fn default() -> Self {
         Self {
@@ -861,8 +874,22 @@ impl CCConsensus {
 
     /// Upgrade to ccBFT consensus
     pub fn upgrade_to_ccbft(&self) -> Result<ccbft::CcBftConsensus> {
-        let validator_id = 0; // Would be assigned properly in real implementation
-        let stake = 1000; // Would be fetched from validator set
+        // Get current validator ID from our keypair
+        let our_pubkey = self.keypair.public_key();
+        let validators = self.validators.read();
+        
+        // Find our validator ID and stake
+        let (validator_id, stake) = validators
+            .iter()
+            .enumerate()
+            .find_map(|(idx, (pubkey, stake))| {
+                if *pubkey == our_pubkey {
+                    Some((idx as u64, *stake))
+                } else {
+                    None
+                }
+            })
+            .unwrap_or((0, 1000)); // Default values if not found
         
         let ccbft_config = ccbft::CcBftConfig::default();
         let ccbft_consensus = ccbft::CcBftConsensus::new(
@@ -874,15 +901,15 @@ impl CCConsensus {
         );
 
         // Initialize with current validator set
-        let validators = self.validators.read();
         let validator_infos: HashMap<CCPublicKey, ccbft::ValidatorInfo> = validators
             .iter()
-            .map(|(pubkey, stake)| {
+            .enumerate()
+            .map(|(idx, (pubkey, stake))| {
                 (*pubkey, ccbft::ValidatorInfo {
                     public_key: *pubkey,
                     stake: *stake,
                     reputation: 1.0,
-                    network_address: "0.0.0.0:8000".to_string(), // Placeholder
+                    network_address: format!("127.0.0.1:800{}", idx), // Better placeholder
                     last_active: Instant::now(),
                 })
             })
@@ -890,8 +917,115 @@ impl CCConsensus {
 
         ccbft_consensus.initialize(validator_infos)?;
 
-        tracing::info!("Successfully upgraded consensus to ccBFT");
+        tracing::info!(
+            "Successfully upgraded consensus to ccBFT with {} validators, total stake: {}",
+            validators.len(),
+            validators.values().sum::<u64>()
+        );
         Ok(ccbft_consensus)
+    }
+
+    /// Create ccBFT consensus engine directly (alternative to upgrade)
+    pub fn create_ccbft(
+        keypair: CCKeypair,
+        validators: HashMap<CCPublicKey, u64>,
+        config: Option<ccbft::CcBftConfig>,
+    ) -> Result<ccbft::CcBftConsensus> {
+        let our_pubkey = keypair.public_key();
+        
+        // Find our validator ID and stake
+        let (validator_id, stake) = validators
+            .iter()
+            .enumerate()
+            .find_map(|(idx, (pubkey, stake))| {
+                if *pubkey == our_pubkey {
+                    Some((idx as u64, *stake))
+                } else {
+                    None
+                }
+            })
+            .ok_or_else(|| CCError::Consensus("Validator not found in set".to_string()))?;
+
+        let safety_system = std::sync::Arc::new(safety::SafetySystem::new(safety::SafetyConfig::default()));
+        let ccbft_config = config.unwrap_or_default();
+        
+        let ccbft_consensus = ccbft::CcBftConsensus::new(
+            keypair,
+            validator_id,
+            stake,
+            ccbft_config,
+            safety_system,
+        );
+
+        // Initialize with validator set
+        let validator_infos: HashMap<CCPublicKey, ccbft::ValidatorInfo> = validators
+            .iter()
+            .enumerate()
+            .map(|(idx, (pubkey, stake))| {
+                (*pubkey, ccbft::ValidatorInfo {
+                    public_key: *pubkey,
+                    stake: *stake,
+                    reputation: 1.0,
+                    network_address: format!("127.0.0.1:800{}", idx),
+                    last_active: Instant::now(),
+                })
+            })
+            .collect();
+
+        ccbft_consensus.initialize(validator_infos)?;
+
+        tracing::info!(
+            "Created new ccBFT consensus with {} validators, total stake: {}",
+            validators.len(),
+            validators.values().sum::<u64>()
+        );
+        Ok(ccbft_consensus)
+    }
+
+    /// Check if upgrade to ccBFT is recommended
+    pub fn should_upgrade_to_ccbft(&self) -> bool {
+        let validators = self.validators.read();
+        let performance = self.performance_monitor.read();
+        
+        // Upgrade if we have enough validators and performance issues
+        validators.len() >= 4 && 
+        performance.throughput.average_throughput < 100.0 &&
+        performance.latency.average_finality_time > Duration::from_secs(5)
+    }
+
+    /// Get consensus engine recommendations
+    pub fn get_consensus_recommendations(&self) -> ConsensusRecommendations {
+        let validators = self.validators.read();
+        let performance = self.performance_monitor.read();
+        let safety_status = self.safety_system.get_safety_status();
+        
+        let validator_count = validators.len();
+        let total_stake = *self.total_stake.read();
+        let avg_tps = performance.throughput.average_throughput;
+        let avg_latency = performance.latency.average_finality_time;
+        
+        let recommendations = if validator_count < 4 {
+            vec!["Add more validators for better fault tolerance".to_string()]
+        } else if avg_tps < 50.0 {
+            vec!["Consider upgrading to ccBFT for better throughput".to_string()]
+        } else if avg_latency > Duration::from_secs(10) {
+            vec!["Consider upgrading to ccBFT for lower latency".to_string()]
+        } else if safety_status.active_faults > 0 {
+            vec!["Enhanced safety monitoring recommended".to_string()]
+        } else {
+            vec!["Current consensus configuration is optimal".to_string()]
+        };
+
+        ConsensusRecommendations {
+            current_engine: "CC Consensus".to_string(),
+            validator_count,
+            total_stake,
+            average_tps: avg_tps,
+            average_latency: avg_latency,
+            safety_incidents: safety_status.active_faults as u64,
+            upgrade_recommended: self.should_upgrade_to_ccbft(),
+            recommendations,
+        }
     }
 }
 

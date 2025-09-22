@@ -3,7 +3,7 @@ use crate::error::Result;
 use crate::transaction::Transaction;
 use serde::{Deserialize, Serialize};
 use dashmap::DashMap;
-use std::collections::HashMap;
+use parking_lot::RwLock;
 
 /// Block header containing metadata
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -159,11 +159,11 @@ impl Block {
 #[derive(Debug)]
 pub struct Blockchain {
     /// All blocks indexed by hash
-    blocks: dashmap::DashMap<Hash, Block>,
+    blocks: DashMap<Hash, Block>,
     /// Block hashes indexed by height
-    heights: dashmap::DashMap<u64, Hash>,
+    heights: DashMap<u64, Hash>,
     /// Current chain head
-    head: parking_lot::RwLock<Option<Hash>>,
+    head: RwLock<Option<Hash>>,
     /// Genesis block hash
     genesis_hash: Hash,
 }
@@ -178,9 +178,9 @@ impl Blockchain {
         }
 
         let blockchain = Self {
-            blocks: dashmap::DashMap::new(),
-            heights: dashmap::DashMap::new(),
-            head: parking_lot::RwLock::new(Some(genesis_hash)),
+            blocks: DashMap::new(),
+            heights: DashMap::new(),
+            head: RwLock::new(Some(genesis_hash)),
             genesis_hash,
         };
 

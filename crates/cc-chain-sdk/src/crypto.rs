@@ -2,7 +2,6 @@ use crate::error::Result;
 use blake3::Hasher;
 use ed25519_dalek::{Signature, Signer, SigningKey, Verifier, VerifyingKey};
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 /// 32-byte hash digest
 pub type Hash = [u8; 32];

@@ -2,8 +2,7 @@
 //!
 //! This module defines the structure and lifecycle of smart contracts.
 
-use crate::crypto::Hash;
-use crate::{CCError, Result};
+use cc_chain_sdk::{Hash, CCError, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 

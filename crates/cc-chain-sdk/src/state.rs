@@ -75,24 +75,24 @@ impl Account {
 #[derive(Debug)]
 pub struct StateManager {
     /// Current state (accounts)
-    accounts: dashmap::DashMap<CCPublicKey, Account>,
+    accounts: DashMap<CCPublicKey, Account>,
     /// State cache for faster access
     #[allow(dead_code)]
-    cache: lru::LruCache<Hash, HashMap<CCPublicKey, Account>>,
+    cache: LruCache<Hash, HashMap<CCPublicKey, Account>>,
     /// Validators and their stakes
-    validators: dashmap::DashMap<CCPublicKey, u64>,
+    validators: DashMap<CCPublicKey, u64>,
     /// Total supply of tokens
-    total_supply: parking_lot::RwLock<u64>,
+    total_supply: RwLock<u64>,
 }
 
 impl StateManager {
     /// Create new state manager
     pub fn new() -> Self {
         Self {
-            accounts: dashmap::DashMap::new(),
-            cache: lru::LruCache::new(std::num::NonZeroUsize::new(1000).unwrap()),
-            validators: dashmap::DashMap::new(),
-            total_supply: parking_lot::RwLock::new(0),
+            accounts: DashMap::new(),
+            cache: LruCache::new(std::num::NonZeroUsize::new(1000).unwrap()),
+            validators: DashMap::new(),
+            total_supply: RwLock::new(0),
         }
     }
 

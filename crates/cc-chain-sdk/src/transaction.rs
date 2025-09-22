@@ -104,9 +104,9 @@ impl Transaction {
 #[derive(Debug)]
 pub struct TransactionPool {
     /// Pending transactions indexed by hash
-    pending: dashmap::DashMap<Hash, Transaction>,
+    pending: DashMap<Hash, Transaction>,
     /// Transactions indexed by sender for nonce checking
-    by_sender: dashmap::DashMap<CCPublicKey, std::collections::BTreeMap<u64, Hash>>,
+    by_sender: DashMap<CCPublicKey, BTreeMap<u64, Hash>>,
     /// Maximum pool size
     max_size: usize,
 }
@@ -115,8 +115,8 @@ impl TransactionPool {
     /// Create a new transaction pool
     pub fn new(max_size: usize) -> Self {
         Self {
-            pending: dashmap::DashMap::new(),
-            by_sender: dashmap::DashMap::new(),
+            pending: DashMap::new(),
+            by_sender: DashMap::new(),
             max_size,
         }
     }
@@ -148,7 +148,7 @@ impl TransactionPool {
         // Index by sender
         self.by_sender
             .entry(tx.from.clone())
-            .or_insert_with(std::collections::BTreeMap::new)
+            .or_insert_with(BTreeMap::new)
             .insert(tx.nonce, tx_hash);
 
         Ok(())

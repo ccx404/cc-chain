@@ -142,6 +142,26 @@ pub struct MempoolStats {
     pub max_size_bytes: usize,
 }
 
+impl MempoolStats {
+    /// Get utilization percentage
+    pub fn utilization_percent(&self) -> f64 {
+        if self.max_transactions > 0 {
+            (self.transaction_count as f64 / self.max_transactions as f64) * 100.0
+        } else {
+            0.0
+        }
+    }
+
+    /// Get size utilization percentage
+    pub fn size_utilization_percent(&self) -> f64 {
+        if self.max_size_bytes > 0 {
+            (self.current_size_bytes as f64 / self.max_size_bytes as f64) * 100.0
+        } else {
+            0.0
+        }
+    }
+}
+
 impl Mempool {
     /// Create new mempool
     pub fn new(max_transactions: usize, max_size_bytes: usize) -> Self {
@@ -250,34 +270,5 @@ impl Mempool {
         }
 
         Ok(())
-    }
-}
-
-/// Mempool statistics
-#[derive(Debug, Clone)]
-pub struct MempoolStats {
-    pub transaction_count: usize,
-    pub max_transactions: usize,
-    pub current_size_bytes: usize,
-    pub max_size_bytes: usize,
-}
-
-impl MempoolStats {
-    /// Get utilization percentage
-    pub fn utilization_percent(&self) -> f64 {
-        if self.max_transactions > 0 {
-            (self.transaction_count as f64 / self.max_transactions as f64) * 100.0
-        } else {
-            0.0
-        }
-    }
-
-    /// Get size utilization percentage
-    pub fn size_utilization_percent(&self) -> f64 {
-        if self.max_size_bytes > 0 {
-            (self.current_size_bytes as f64 / self.max_size_bytes as f64) * 100.0
-        } else {
-            0.0
-        }
     }
 }

@@ -1,12 +1,15 @@
-use crate::block::Block;
-use crate::consensus::ConsensusMessage;
-use crate::transaction::Transaction;
-use crate::Result;
+use cc_chain_sdk::{Block, Transaction, Result, Hash, CCPublicKey};
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 use std::sync::Arc;
 use tokio::net::{TcpListener, TcpStream};
 use tokio::sync::mpsc;
+
+/// Placeholder for ConsensusMessage (should come from consensus crate)
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum ConsensusMessage {
+    Placeholder,
+}
 
 /// Network message types
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -16,7 +19,7 @@ pub enum NetworkMessage {
         node_id: String,
         version: String,
         height: u64,
-        genesis_hash: crate::crypto::Hash,
+        genesis_hash: Hash,
     },
     /// Transaction propagation
     Transaction(Transaction),
@@ -29,7 +32,7 @@ pub enum NetworkMessage {
     /// Peer list response
     PeerListResponse(Vec<SocketAddr>),
     /// Block request
-    BlockRequest(crate::crypto::Hash),
+    BlockRequest(Hash),
     /// Block response
     BlockResponse(Option<Block>),
     /// Sync request for range of blocks
@@ -386,7 +389,7 @@ impl LightNetworkClient {
     }
 
     /// Request block by hash
-    pub async fn request_block(&self, block_hash: crate::crypto::Hash) -> Result<Option<Block>> {
+    pub async fn request_block(&self, block_hash: Hash) -> Result<Option<Block>> {
         let mut stream = self.connect().await?;
 
         let request = NetworkMessage::BlockRequest(block_hash);

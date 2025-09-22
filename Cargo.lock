@@ -216,6 +216,7 @@ name = "cc-chain-consensus"
 version = "1.0.0"
 dependencies = [
  "anyhow",
+ "bincode",
  "cc-chain-sdk",
  "crossbeam",
  "dashmap",
@@ -232,7 +233,10 @@ dependencies = [
 name = "cc-chain-port"
 version = "1.0.0"
 dependencies = [
+ "bincode",
  "cc-chain-sdk",
+ "dashmap",
+ "parking_lot",
  "serde",
  "serde_json",
  "thiserror",

@@ -17,6 +17,9 @@ cc-chain-sdk = { path = "../cc-chain-sdk" }
 tokio = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
+bincode = { workspace = true }
 thiserror = { workspace = true }
 tracing = { workspace = true }
 uuid = { workspace = true }
+dashmap = { workspace = true }
+parking_lot = { workspace = true }

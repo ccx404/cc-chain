@@ -4,10 +4,9 @@
 //! enabling interoperability with other blockchain networks including Ethereum,
 //! Bitcoin, and other compatible chains.
 
-use crate::crypto::{CCPublicKey, CCSignature};
-use crate::{CCError, Result};
+use cc_chain_sdk::{CCPublicKey, CCSignature, CCError, Result};
 // use crate::transaction::Transaction;
-use crate::vm::contract::ContractAddress;
+// use cc_chain_vm::contract::ContractAddress;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -78,7 +77,7 @@ pub struct CrossChainAsset {
     pub native_contract: Option<String>,
 
     /// Wrapped contract address on CC Chain
-    pub cc_contract: Option<ContractAddress>,
+    pub cc_contract: Option<String>, // TODO: Use ContractAddress from VM crate
 
     /// Total supply locked in bridge
     pub total_locked: u64,

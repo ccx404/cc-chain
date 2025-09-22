@@ -3,9 +3,9 @@
 //! This example demonstrates how to use the ccBFT consensus engine
 //! for Byzantine Fault Tolerant consensus in CC Chain.
 
-use cc_chain::consensus::{CCConsensus, ccbft::{CcBftConsensus, CcBftConfig, ValidatorInfo}};
-use cc_chain::crypto::CCKeypair;
-use cc_chain::core::Result;
+use consensus::{CCConsensus, ccbft::{CcBftConsensus, CcBftConfig, ValidatorInfo}};
+use core::crypto::CCKeypair;
+use core::Result;
 use std::collections::HashMap;
 use std::time::{Duration, Instant};
 
@@ -107,7 +107,7 @@ async fn main() -> Result<()> {
     // Example 5: Validator set management
     println!("\n5. Validator set management...");
     
-    use cc_chain::consensus::ccbft::{ValidatorChange, ChangeType};
+    use consensus::ccbft::{ValidatorChange, ChangeType};
     
     let new_validator = CCKeypair::generate();
     let validator_changes = vec![

@@ -254,6 +254,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
+### Quick Start Scripts
+
+```bash
+# Generate and verify all documentation
+./scripts/generate-docs.sh
+
+# Start a test network
+./scripts/start-testnet.sh  # (coming soon)
+
+# Run performance benchmarks
+cargo bench
+```
+
 ### Running Tests
 
 ```bash

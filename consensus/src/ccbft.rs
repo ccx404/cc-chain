@@ -132,6 +132,8 @@ pub struct BlockPipeline {
     pub max_parallel: usize,
     /// Pipeline performance metrics
     pub throughput_metrics: ThroughputMetrics,
+    /// Bulk construction progress tracking
+    pub bulk_progress: Option<BulkConstructionProgress>,
 }
 
 /// Pipeline stage information
@@ -369,6 +371,46 @@ pub struct ThroughputMetrics {
     pub pipeline_utilization: f64,
 }
 
+/// Bulk construction progress tracking
+#[derive(Debug, Clone)]
+pub struct BulkConstructionProgress {
+    /// Total number of blocks to construct
+    pub total_blocks: u64,
+    /// Number of blocks completed
+    pub completed_blocks: u64,
+    /// Number of blocks currently in progress
+    pub in_progress_blocks: u64,
+    /// Number of blocks failed
+    pub failed_blocks: u64,
+    /// Progress percentage (0.0 to 1.0)
+    pub progress_percentage: f64,
+    /// Estimated time remaining
+    pub estimated_time_remaining: Duration,
+    /// Construction start time
+    pub start_time: Instant,
+    /// Last update time
+    pub last_update_time: Instant,
+    /// Average construction time per block
+    pub average_block_construction_time: Duration,
+}
+
+impl Default for BulkConstructionProgress {
+    fn default() -> Self {
+        let now = Instant::now();
+        Self {
+            total_blocks: 0,
+            completed_blocks: 0,
+            in_progress_blocks: 0,
+            failed_blocks: 0,
+            progress_percentage: 0.0,
+            estimated_time_remaining: Duration::from_secs(0),
+            start_time: now,
+            last_update_time: now,
+            average_block_construction_time: Duration::from_secs(1),
+        }
+    }
+}
+
 impl Default for CcBftConfig {
     fn default() -> Self {
         Self {
@@ -429,6 +471,7 @@ impl CcBftConsensus {
                 average_block_time: Duration::from_secs(1),
                 pipeline_utilization: 0.0,
             },
+            bulk_progress: None,
         }));
 
         let view_change = Arc::new(RwLock::new(ViewChangeManager {
@@ -1117,6 +1160,96 @@ impl CcBftConsensus {
 
         Ok(())
     }
+
+    /// Start bulk construction progress tracking
+    pub fn start_bulk_construction(&self, total_blocks: u64) -> Result<()> {
+        let mut pipeline = self.pipeline.write();
+        
+        pipeline.bulk_progress = Some(BulkConstructionProgress {
+            total_blocks,
+            completed_blocks: 0,
+            in_progress_blocks: 0,
+            failed_blocks: 0,
+            progress_percentage: 0.0,
+            estimated_time_remaining: Duration::from_secs(0),
+            start_time: Instant::now(),
+            last_update_time: Instant::now(),
+            average_block_construction_time: Duration::from_secs(1),
+        });
+
+        tracing::info!("Started bulk construction progress tracking for {} blocks", total_blocks);
+        Ok(())
+    }
+
+    /// Update bulk construction progress
+    pub fn update_bulk_construction_progress(&self, completed: u64, failed: u64) -> Result<()> {
+        let mut pipeline = self.pipeline.write();
+        
+        // Extract required data before mutable borrow
+        let in_progress_count = pipeline.processing_blocks.len() as u64;
+        
+        if let Some(ref mut progress) = pipeline.bulk_progress {
+            let now = Instant::now();
+            
+            progress.completed_blocks = completed;
+            progress.failed_blocks = failed;
+            progress.in_progress_blocks = in_progress_count;
+            
+            // Calculate progress percentage
+            let total_processed = completed + failed;
+            progress.progress_percentage = if progress.total_blocks > 0 {
+                total_processed as f64 / progress.total_blocks as f64
+            } else {
+                0.0
+            };
+
+            // Update average construction time
+            if completed > 0 {
+                let elapsed = now.duration_since(progress.start_time);
+                progress.average_block_construction_time = elapsed / completed as u32;
+                
+                // Estimate remaining time
+                let remaining_blocks = progress.total_blocks.saturating_sub(total_processed);
+                progress.estimated_time_remaining = progress.average_block_construction_time * remaining_blocks as u32;
+            }
+            
+            progress.last_update_time = now;
+            
+            tracing::debug!("Bulk construction progress: {:.1}% ({}/{} completed, {} failed, {} in progress)",
+                progress.progress_percentage * 100.0,
+                completed,
+                progress.total_blocks,
+                failed,
+                progress.in_progress_blocks
+            );
+        }
+
+        Ok(())
+    }
+
+    /// Get bulk construction progress
+    pub fn get_bulk_construction_progress(&self) -> Option<BulkConstructionProgress> {
+        let pipeline = self.pipeline.read();
+        pipeline.bulk_progress.clone()
+    }
+
+    /// Complete bulk construction progress tracking
+    pub fn complete_bulk_construction(&self) -> Result<()> {
+        let mut pipeline = self.pipeline.write();
+        
+        if let Some(progress) = &pipeline.bulk_progress {
+            let duration = progress.last_update_time.duration_since(progress.start_time);
+            tracing::info!("Completed bulk construction: {}/{} blocks in {:?} (avg: {:?}/block)",
+                progress.completed_blocks,
+                progress.total_blocks,
+                duration,
+                progress.average_block_construction_time
+            );
+        }
+        
+        pipeline.bulk_progress = None;
+        Ok(())
+    }
 }
 
 // Supporting implementations
@@ -1281,6 +1414,7 @@ impl CcBftConsensus {
         let state = self.state.read();
         let metrics = self.metrics.read();
         let validator_set = self.validator_set.read();
+        let pipeline = self.pipeline.read();
         let (proposal_queue, vote_queue, view_change_queue, new_view_queue) = 
             self.message_queues.get_queue_lengths();
 
@@ -1301,6 +1435,7 @@ impl CcBftConsensus {
                 view_changes: view_change_queue,
                 new_views: new_view_queue,
             },
+            bulk_construction_progress: pipeline.bulk_progress.clone(),
         }
     }
 }
@@ -1328,6 +1463,7 @@ pub struct CcBftStatus {
     pub throughput_tps: f64,
     pub view_changes: u64,
     pub queue_lengths: QueueLengths,
+    pub bulk_construction_progress: Option<BulkConstructionProgress>,
 }
 
 /// Message queue length information
@@ -1495,5 +1631,60 @@ mod tests {
         
         let metrics = ccbft.get_pipeline_metrics();
         assert_eq!(metrics.blocks_per_second, 2.0); // 10 blocks / 5 seconds
+    }
+
+    #[test]
+    fn test_bulk_construction_progress() {
+        let ccbft = create_test_ccbft();
+        
+        // Test starting bulk construction
+        assert!(ccbft.start_bulk_construction(100).is_ok());
+        
+        // Check initial progress
+        let progress = ccbft.get_bulk_construction_progress();
+        assert!(progress.is_some());
+        let progress = progress.unwrap();
+        assert_eq!(progress.total_blocks, 100);
+        assert_eq!(progress.completed_blocks, 0);
+        assert_eq!(progress.progress_percentage, 0.0);
+        
+        // Test updating progress
+        assert!(ccbft.update_bulk_construction_progress(25, 2).is_ok());
+        
+        let progress = ccbft.get_bulk_construction_progress().unwrap();
+        assert_eq!(progress.completed_blocks, 25);
+        assert_eq!(progress.failed_blocks, 2);
+        assert_eq!(progress.progress_percentage, 0.27); // (25 + 2) / 100
+        
+        // Test completing bulk construction
+        assert!(ccbft.complete_bulk_construction().is_ok());
+        
+        // Progress should be None after completion
+        assert!(ccbft.get_bulk_construction_progress().is_none());
+    }
+
+    #[test]
+    fn test_ccbft_status_includes_bulk_progress() {
+        let ccbft = create_test_ccbft();
+        
+        // Initially no bulk progress
+        let status = ccbft.get_status();
+        assert!(status.bulk_construction_progress.is_none());
+        
+        // Start bulk construction
+        assert!(ccbft.start_bulk_construction(50).is_ok());
+        
+        // Status should include bulk progress
+        let status = ccbft.get_status();
+        assert!(status.bulk_construction_progress.is_some());
+        let progress = status.bulk_construction_progress.unwrap();
+        assert_eq!(progress.total_blocks, 50);
+        
+        // Complete bulk construction
+        assert!(ccbft.complete_bulk_construction().is_ok());
+        
+        // Status should not include bulk progress after completion
+        let status = ccbft.get_status();
+        assert!(status.bulk_construction_progress.is_none());
     }
 }

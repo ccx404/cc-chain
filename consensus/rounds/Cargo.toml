@@ -1,0 +1,12 @@
+[package]
+name = "consensus-rounds"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Consensus rounds functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

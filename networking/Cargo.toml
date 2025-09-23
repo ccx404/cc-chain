@@ -10,6 +10,22 @@ keywords = ["blockchain", "networking", "p2p", "bridge"]
 categories = ["network-programming", "cryptography"]
 
 [dependencies]
+# Sub-subprojects
+networking-p2p = { path = "p2p" }
+networking-discovery = { path = "discovery" }
+networking-messaging = { path = "messaging" }
+networking-protocols = { path = "protocols" }
+networking-routing = { path = "routing" }
+networking-connections = { path = "connections" }
+networking-security = { path = "security" }
+networking-sync = { path = "sync" }
+networking-gossip = { path = "gossip" }
+networking-validation = { path = "validation" }
+networking-monitoring = { path = "monitoring" }
+networking-performance = { path = "performance" }
+networking-encryption = { path = "encryption" }
+networking-compression = { path = "compression" }
+
 # Local dependencies
 cc-core = { path = "../core" }
 consensus = { path = "../consensus" }

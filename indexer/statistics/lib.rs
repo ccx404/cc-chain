@@ -1,0 +1,1 @@
+//! indexer statistics functionality

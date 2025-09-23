@@ -1,0 +1,12 @@
+[package]
+name = "metrics-reporting"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "metrics reporting functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

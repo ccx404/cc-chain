@@ -1,6 +1,29 @@
 [package]
 name = "api"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain API server"
 
 [dependencies]
+# Sub-subprojects
+api-endpoints = { path = "endpoints" }
+api-authentication = { path = "authentication" }
+api-middleware = { path = "middleware" }
+api-routing = { path = "routing" }
+api-handlers = { path = "handlers" }
+api-serialization = { path = "serialization" }
+api-validation = { path = "validation" }
+api-responses = { path = "responses" }
+api-errors = { path = "errors" }
+api-documentation = { path = "documentation" }
+api-versioning = { path = "versioning" }
+api-rate_limiting = { path = "rate_limiting" }
+api-caching = { path = "caching" }
+api-monitoring = { path = "monitoring" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

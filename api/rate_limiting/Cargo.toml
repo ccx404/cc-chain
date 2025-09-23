@@ -1,0 +1,12 @@
+[package]
+name = "api-rate_limiting"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "API rate_limiting functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

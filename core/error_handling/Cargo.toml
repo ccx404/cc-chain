@@ -1,0 +1,12 @@
+[package]
+name = "cc-core-error_handling"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain core error_handling functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

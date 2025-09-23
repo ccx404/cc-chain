@@ -1,0 +1,12 @@
+[package]
+name = "networking-performance"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Networking performance functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

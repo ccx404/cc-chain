@@ -10,6 +10,23 @@ keywords = ["blockchain", "storage", "mempool", "cache"]
 categories = ["database", "caching"]
 
 [dependencies]
+# Sub-subprojects
+storage-backup = { path = "backup" }
+storage-blocks = { path = "blocks" }
+storage-caching = { path = "caching" }
+storage-compression = { path = "compression" }
+storage-database = { path = "database" }
+storage-encryption = { path = "encryption" }
+storage-indexing = { path = "indexing" }
+storage-mempool = { path = "mempool" }
+storage-optimization = { path = "optimization" }
+storage-persistence = { path = "persistence" }
+storage-recovery = { path = "recovery" }
+storage-replication = { path = "replication" }
+storage-snapshots = { path = "snapshots" }
+storage-state = { path = "state" }
+storage-transactions = { path = "transactions" }
+
 # Local dependencies
 cc-core = { path = "../core" }
 

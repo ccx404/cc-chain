@@ -1,0 +1,1 @@
+//! rpc methods functionality

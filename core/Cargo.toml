@@ -22,6 +22,7 @@ bincode = { workspace = true }
 # Cryptography
 blake3 = { workspace = true }
 ed25519-dalek = { workspace = true }
+sha2 = { workspace = true }
 
 # Utilities
 uuid = { workspace = true }
@@ -30,6 +31,10 @@ lru = { workspace = true }
 dashmap = { workspace = true }
 hex = { workspace = true }
 rand = { workspace = true }
+num_cpus = "1.16"
+
+# Time
+chrono = { workspace = true }
 
 # Error handling
 thiserror = { workspace = true }
@@ -37,6 +42,10 @@ anyhow = { workspace = true }
 
 # Logging
 tracing = { workspace = true }
+
+# Concurrency 
+rayon = { workspace = true }
+crossbeam = { workspace = true }
 
 [dev-dependencies]
 criterion = { version = "0.5", features = ["html_reports"] }

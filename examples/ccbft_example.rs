@@ -132,6 +132,44 @@ async fn main() -> Result<()> {
     println!("      - Average block time: {:?}", pipeline_metrics.average_block_time);
     println!("      - Pipeline utilization: {:.2}%", pipeline_metrics.pipeline_utilization * 100.0);
     
+    // Example 6.5: Bulk construction progress tracking
+    println!("\n6.5. Bulk construction progress tracking...");
+    
+    // Start bulk construction of 100 blocks
+    ccbft_consensus.start_bulk_construction(100)?;
+    println!("   🚧 Started bulk construction of 100 blocks");
+    
+    // Simulate progress updates
+    for i in 1..=5 {
+        let completed = i * 20;
+        let failed = i / 2; // Some occasional failures
+        ccbft_consensus.update_bulk_construction_progress(completed, failed)?;
+        
+        if let Some(progress) = ccbft_consensus.get_bulk_construction_progress() {
+            println!("   📈 Progress Update #{}: {:.1}% complete ({}/{} blocks, {} failed)",
+                i,
+                progress.progress_percentage * 100.0,
+                progress.completed_blocks,
+                progress.total_blocks,
+                progress.failed_blocks
+            );
+            println!("      - Estimated time remaining: {:?}", progress.estimated_time_remaining);
+            println!("      - Average construction time: {:?}/block", progress.average_block_construction_time);
+        }
+        
+        // Simulate some processing delay
+        tokio::time::sleep(Duration::from_millis(100)).await;
+    }
+    
+    // Complete bulk construction
+    ccbft_consensus.complete_bulk_construction()?;
+    println!("   ✅ Bulk construction completed");
+    
+    // Verify status includes bulk progress (should be None after completion)
+    let status_after_bulk = ccbft_consensus.get_status();
+    println!("   📊 Bulk progress in status: {:?}", 
+        status_after_bulk.bulk_construction_progress.is_some());
+    
     // Example 7: Consensus recommendations
     println!("\n7. Getting consensus recommendations...");
     
@@ -153,6 +191,7 @@ async fn main() -> Result<()> {
     println!("  • Pipeline processing for improved throughput");
     println!("  • Dynamic validator set management");
     println!("  • Safety system integration");
+    println!("  • Bulk construction progress tracking with real-time updates");
     
     Ok(())
 }

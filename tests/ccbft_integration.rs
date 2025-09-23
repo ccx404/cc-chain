@@ -316,3 +316,70 @@ async fn test_ccbft_stress_scenario() -> Result<()> {
     
     Ok(())
 }
+
+#[tokio::test]
+async fn test_ccbft_bulk_construction_progress() -> Result<()> {
+    println!("🧪 Testing ccBFT bulk construction progress...");
+    
+    let validators = create_ccbft_network(4)?;
+    let validator = &validators[0];
+    
+    // Test bulk construction progress tracking
+    println!("   Starting bulk construction of 50 blocks...");
+    validator.start_bulk_construction(50)?;
+    
+    // Verify initial state
+    let progress = validator.get_bulk_construction_progress();
+    assert!(progress.is_some());
+    let progress = progress.unwrap();
+    assert_eq!(progress.total_blocks, 50);
+    assert_eq!(progress.completed_blocks, 0);
+    assert_eq!(progress.progress_percentage, 0.0);
+    println!("   ✓ Bulk construction started successfully");
+    
+    // Simulate construction progress
+    for i in 1..=5 {
+        let completed = i * 10;
+        let failed = if i > 3 { 1 } else { 0 }; // Some failures later
+        
+        validator.update_bulk_construction_progress(completed, failed)?;
+        
+        if let Some(progress) = validator.get_bulk_construction_progress() {
+            println!("   📈 Progress update {}: {:.1}% ({}/{} blocks, {} failed)", 
+                i,
+                progress.progress_percentage * 100.0,
+                progress.completed_blocks,
+                progress.total_blocks, 
+                progress.failed_blocks
+            );
+            
+            // Verify progress values
+            assert_eq!(progress.completed_blocks, completed);
+            assert_eq!(progress.failed_blocks, failed);
+            
+            let expected_percentage = (completed + failed) as f64 / progress.total_blocks as f64;
+            assert!((progress.progress_percentage - expected_percentage).abs() < 0.01);
+        }
+        
+        // Simulate processing delay
+        tokio::time::sleep(Duration::from_millis(50)).await;
+    }
+    
+    // Verify status includes progress information
+    let status = validator.get_status();
+    assert!(status.bulk_construction_progress.is_some());
+    println!("   ✓ Status includes bulk construction progress");
+    
+    // Complete bulk construction
+    validator.complete_bulk_construction()?;
+    println!("   ✓ Bulk construction completed");
+    
+    // Verify progress is cleared after completion
+    assert!(validator.get_bulk_construction_progress().is_none());
+    
+    let final_status = validator.get_status();
+    assert!(final_status.bulk_construction_progress.is_none());
+    println!("   ✓ Progress cleared after completion");
+    
+    Ok(())
+}

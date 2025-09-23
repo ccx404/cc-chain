@@ -10,3 +10,6 @@ description = "sdk examples functionality"
 [dependencies]
 serde = { workspace = true }
 thiserror = { workspace = true }
+chrono = { workspace = true }
+tokio = { workspace = true }
+rand = { workspace = true }

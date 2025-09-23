@@ -10,3 +10,4 @@ description = "examples tutorials functionality"
 [dependencies]
 serde = { workspace = true }
 thiserror = { workspace = true }
+chrono = { workspace = true }

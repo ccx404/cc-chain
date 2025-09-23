@@ -628,6 +628,7 @@ dependencies = [
 name = "cc-core-algorithms"
 version = "1.0.0"
 dependencies = [
+ "rand",
  "serde",
  "thiserror",
 ]
@@ -1062,8 +1063,10 @@ dependencies = [
 name = "consensus-performance"
 version = "1.0.0"
 dependencies = [
+ "chrono",
  "serde",
  "thiserror",
+ "tokio",
 ]
 
 [[package]]
@@ -1545,6 +1548,7 @@ dependencies = [
 name = "examples-tutorials"
 version = "1.0.0"
 dependencies = [
+ "chrono",
  "serde",
  "thiserror",
 ]
@@ -3046,8 +3050,11 @@ dependencies = [
 name = "sdk-examples"
 version = "1.0.0"
 dependencies = [
+ "chrono",
+ "rand",
  "serde",
  "thiserror",
+ "tokio",
 ]
 
 [[package]]

@@ -10,3 +10,5 @@ description = "Consensus performance functionality"
 [dependencies]
 serde = { workspace = true }
 thiserror = { workspace = true }
+tokio = { workspace = true }
+chrono = { workspace = true }

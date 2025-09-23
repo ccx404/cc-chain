@@ -16,8 +16,12 @@ pub mod utils;
 
 // Re-export commonly used types
 pub use block::{Block, BlockHeader, Blockchain};
-pub use crypto::{CCKeypair, CCPublicKey, CCSignature, Hash};
+pub use crypto::{CCKeypair, CCPublicKey, CCSignature, Hash, MerkleTree, MerkleProof, 
+                 SignatureAggregator, QuantumResistantSignature, HashCache, 
+                 parallel_hash_multiple, multi_hash, MultiHash};
 pub use error::{CCError, Result};
-pub use state::StateManager;
-pub use transaction::Transaction;
+pub use state::{StateManager, Account, StateSnapshot, StateCache, StateStatistics, 
+                StateDiff, CacheStatistics};
+pub use transaction::{Transaction, ParallelTransactionProcessor, TransactionBatch, 
+                     SmartBatcher};
 pub use utils::{AdaptiveParams, PerformanceMonitor, PerformanceMetrics};

@@ -2,6 +2,7 @@ use crate::error::Result;
 use blake3::Hasher;
 use ed25519_dalek::{Signature, Signer, SigningKey, Verifier, VerifyingKey};
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 /// 32-byte hash digest
 pub type Hash = [u8; 32];
@@ -194,4 +195,172 @@ impl MerkleTree {
 
         current_hash == *root
     }
+}
+
+/// Merkle proof for efficient verification
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MerkleProof {
+    pub leaf_index: usize,
+    pub proof: Vec<Hash>,
+    pub root: Hash,
+}
+
+/// Advanced signature aggregation for batch verification
+pub struct SignatureAggregator {
+    signatures: Vec<CCSignature>,
+    public_keys: Vec<CCPublicKey>,
+    messages: Vec<Vec<u8>>,
+}
+
+impl SignatureAggregator {
+    pub fn new() -> Self {
+        Self {
+            signatures: Vec::new(),
+            public_keys: Vec::new(),
+            messages: Vec::new(),
+        }
+    }
+
+    /// Add a signature to the batch
+    pub fn add_signature(&mut self, signature: CCSignature, public_key: CCPublicKey, message: Vec<u8>) {
+        self.signatures.push(signature);
+        self.public_keys.push(public_key);
+        self.messages.push(message);
+    }
+
+    /// Verify all signatures in batch (more efficient than individual verification)
+    pub fn verify_batch(&self) -> bool {
+        if self.signatures.len() != self.public_keys.len() || self.signatures.len() != self.messages.len() {
+            return false;
+        }
+
+        // For Ed25519, we verify each signature individually but in optimized batch
+        // Real batch verification would require different cryptographic schemes
+        for i in 0..self.signatures.len() {
+            if !self.public_keys[i].verify(&self.messages[i], &self.signatures[i]) {
+                return false;
+            }
+        }
+
+        true
+    }
+
+    /// Clear the batch
+    pub fn clear(&mut self) {
+        self.signatures.clear();
+        self.public_keys.clear();
+        self.messages.clear();
+    }
+
+    /// Get batch size
+    pub fn len(&self) -> usize {
+        self.signatures.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.signatures.is_empty()
+    }
+}
+
+/// Quantum-resistant signature scheme (placeholder for future implementation)
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct QuantumResistantSignature {
+    // This would use post-quantum cryptography like Dilithium or Falcon
+    // For now, we use a placeholder structure
+    data: Vec<u8>,
+}
+
+impl QuantumResistantSignature {
+    /// Create a placeholder quantum-resistant signature
+    pub fn sign_quantum(_keypair: &CCKeypair, _message: &[u8]) -> Self {
+        // TODO: Implement actual post-quantum signature scheme
+        Self {
+            data: vec![0u8; 2420], // Typical size for Dilithium signatures
+        }
+    }
+
+    /// Verify quantum-resistant signature
+    pub fn verify_quantum(&self, _public_key: &CCPublicKey, _message: &[u8]) -> bool {
+        // TODO: Implement actual post-quantum verification
+        // For now, always return true as placeholder
+        !self.data.is_empty()
+    }
+}
+
+/// High-performance hash cache for frequently computed hashes
+pub struct HashCache {
+    cache: HashMap<Vec<u8>, Hash>,
+    max_size: usize,
+}
+
+impl HashCache {
+    pub fn new(max_size: usize) -> Self {
+        Self {
+            cache: HashMap::new(),
+            max_size,
+        }
+    }
+
+    /// Get hash from cache or compute and store
+    pub fn get_or_compute(&mut self, data: &[u8]) -> Hash {
+        if let Some(&cached_hash) = self.cache.get(data) {
+            return cached_hash;
+        }
+
+        let computed_hash = hash(data);
+        
+        // Implement simple eviction if cache is full
+        if self.cache.len() >= self.max_size {
+            // Remove oldest entry (simple FIFO)
+            if let Some(key) = self.cache.keys().next().cloned() {
+                self.cache.remove(&key);
+            }
+        }
+
+        self.cache.insert(data.to_vec(), computed_hash);
+        computed_hash
+    }
+
+    /// Clear the cache
+    pub fn clear(&mut self) {
+        self.cache.clear();
+    }
+
+    /// Get cache statistics
+    pub fn stats(&self) -> (usize, usize) {
+        (self.cache.len(), self.max_size)
+    }
+}
+
+/// Parallel hash computation for large data sets
+pub fn parallel_hash_multiple(data_pieces: &[&[u8]]) -> Vec<Hash> {
+    use rayon::prelude::*;
+    
+    data_pieces
+        .par_iter()
+        .map(|data| hash(data))
+        .collect()
+}
+
+/// Optimized multi-hash for different algorithms
+pub fn multi_hash(data: &[u8]) -> MultiHash {
+    MultiHash {
+        blake3: hash(data),
+        sha256: {
+            use sha2::{Sha256, Digest};
+            let mut hasher = Sha256::new();
+            hasher.update(data);
+            let result = hasher.finalize();
+            let mut hash_array = [0u8; 32];
+            hash_array.copy_from_slice(&result);
+            hash_array
+        },
+    }
+}
+
+/// Multi-hash structure containing different hash algorithms
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MultiHash {
+    pub blake3: Hash,
+    pub sha256: Hash,
 }

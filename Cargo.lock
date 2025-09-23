@@ -845,6 +845,7 @@ version = "1.0.0"
 dependencies = [
  "anyhow",
  "cc-core",
+ "chrono",
  "clap",
  "cli-commands",
  "cli-configuration",
@@ -862,6 +863,7 @@ dependencies = [
  "hex",
  "networking",
  "parking_lot",
+ "rand",
  "serde",
  "serde_json",
  "storage",

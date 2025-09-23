@@ -48,6 +48,8 @@ clap = { workspace = true }
 # Utilities
 parking_lot = { workspace = true }
 hex = { workspace = true }
+rand = { workspace = true }
+chrono = { workspace = true }
 
 # Error handling
 thiserror = { workspace = true }

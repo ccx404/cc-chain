@@ -10,7 +10,7 @@ use crate::vm::{
     storage::ContractStorage,
     VMConfig,
 };
-use crate::{CCError, Result};
+use cc_core::{CCError, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 

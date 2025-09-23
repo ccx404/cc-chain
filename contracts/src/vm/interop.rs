@@ -7,7 +7,7 @@ use crate::vm::{
     runtime::{ExecutionContext, ExecutionResult},
     storage::ContractStorage,
 };
-use crate::{CCError, Result};
+use cc_core::{CCError, Result};
 use serde::{Deserialize, Serialize};
 
 /// Inter-contract call manager

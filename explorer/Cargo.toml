@@ -1,6 +1,24 @@
 [package]
 name = "explorer"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain block explorer backend"
 
 [dependencies]
+# Sub-subprojects
+explorer-backend = { path = "backend" }
+explorer-database = { path = "database" }
+explorer-frontend = { path = "frontend" }
+explorer-indexing = { path = "indexing" }
+explorer-monitoring = { path = "monitoring" }
+explorer-performance = { path = "performance" }
+explorer-search = { path = "search" }
+explorer-statistics = { path = "statistics" }
+explorer-visualization = { path = "visualization" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

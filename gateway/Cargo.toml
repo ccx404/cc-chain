@@ -1,6 +1,25 @@
 [package]
 name = "gateway"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain API gateway"
 
 [dependencies]
+# Sub-subprojects
+gateway-authentication = { path = "authentication" }
+gateway-authorization = { path = "authorization" }
+gateway-caching = { path = "caching" }
+gateway-documentation = { path = "documentation" }
+gateway-load_balancing = { path = "load_balancing" }
+gateway-logging = { path = "logging" }
+gateway-metrics = { path = "metrics" }
+gateway-monitoring = { path = "monitoring" }
+gateway-routing = { path = "routing" }
+gateway-security = { path = "security" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

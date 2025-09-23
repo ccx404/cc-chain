@@ -1,6 +1,26 @@
 [package]
 name = "docs"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain documentation"
 
 [dependencies]
+# Sub-subprojects
+docs-api = { path = "api" }
+docs-architecture = { path = "architecture" }
+docs-configuration = { path = "configuration" }
+docs-development = { path = "development" }
+docs-generator = { path = "generator" }
+docs-guides = { path = "guides" }
+docs-markdown = { path = "markdown" }
+docs-references = { path = "references" }
+docs-specifications = { path = "specifications" }
+docs-tutorials = { path = "tutorials" }
+docs-validation = { path = "validation" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

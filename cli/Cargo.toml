@@ -14,6 +14,20 @@ name = "cc-node"
 path = "src/bin/node.rs"
 
 [dependencies]
+# Sub-subprojects
+cli-commands = { path = "commands" }
+cli-configuration = { path = "configuration" }
+cli-documentation = { path = "documentation" }
+cli-errors = { path = "errors" }
+cli-interface = { path = "interface" }
+cli-logging = { path = "logging" }
+cli-monitoring = { path = "monitoring" }
+cli-parsing = { path = "parsing" }
+cli-performance = { path = "performance" }
+cli-testing = { path = "testing" }
+cli-utilities = { path = "utilities" }
+cli-validation = { path = "validation" }
+
 # Local dependencies
 cc-core = { path = "../core" }
 consensus = { path = "../consensus" }

@@ -1,6 +1,24 @@
 [package]
 name = "validator"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain validator-specific functionality"
 
 [dependencies]
+# Sub-subprojects
+validator-consensus = { path = "consensus" }
+validator-monitoring = { path = "monitoring" }
+validator-network = { path = "network" }
+validator-penalties = { path = "penalties" }
+validator-performance = { path = "performance" }
+validator-rewards = { path = "rewards" }
+validator-security = { path = "security" }
+validator-staking = { path = "staking" }
+validator-utilities = { path = "utilities" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

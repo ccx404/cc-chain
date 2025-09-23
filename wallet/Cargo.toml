@@ -1,6 +1,25 @@
 [package]
 name = "wallet"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain wallet functionality"
 
 [dependencies]
+# Sub-subprojects
+wallet-accounts = { path = "accounts" }
+wallet-backup = { path = "backup" }
+wallet-interface = { path = "interface" }
+wallet-keys = { path = "keys" }
+wallet-recovery = { path = "recovery" }
+wallet-security = { path = "security" }
+wallet-signing = { path = "signing" }
+wallet-transactions = { path = "transactions" }
+wallet-utilities = { path = "utilities" }
+wallet-validation = { path = "validation" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

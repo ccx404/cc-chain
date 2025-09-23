@@ -1,6 +1,25 @@
 [package]
 name = "bridge"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain cross-chain bridge implementation"
 
 [dependencies]
+# Sub-subprojects
+bridge-chains = { path = "chains" }
+bridge-integration = { path = "integration" }
+bridge-messages = { path = "messages" }
+bridge-monitoring = { path = "monitoring" }
+bridge-performance = { path = "performance" }
+bridge-recovery = { path = "recovery" }
+bridge-security = { path = "security" }
+bridge-utilities = { path = "utilities" }
+bridge-validation = { path = "validation" }
+bridge-validators = { path = "validators" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

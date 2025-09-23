@@ -1,6 +1,25 @@
 [package]
 name = "metrics"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain performance and health metrics"
 
 [dependencies]
+# Sub-subprojects
+metrics-alerts = { path = "alerts" }
+metrics-analysis = { path = "analysis" }
+metrics-collection = { path = "collection" }
+metrics-aggregation = { path = "aggregation" }
+metrics-dashboard = { path = "dashboard" }
+metrics-export = { path = "export" }
+metrics-performance = { path = "performance" }
+metrics-reporting = { path = "reporting" }
+metrics-storage = { path = "storage" }
+metrics-visualization = { path = "visualization" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

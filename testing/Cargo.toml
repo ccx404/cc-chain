@@ -1,6 +1,24 @@
 [package]
 name = "testing"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain testing utilities and frameworks"
 
 [dependencies]
+# Sub-subprojects
+testing-benchmarks = { path = "benchmarks" }
+testing-fixtures = { path = "fixtures" }
+testing-helpers = { path = "helpers" }
+testing-integration = { path = "integration" }
+testing-mocks = { path = "mocks" }
+testing-performance = { path = "performance" }
+testing-stress = { path = "stress" }
+testing-unit = { path = "unit" }
+testing-utilities = { path = "utilities" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

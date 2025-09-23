@@ -1,0 +1,1 @@
+//! indexer caching functionality

@@ -1,6 +1,26 @@
 [package]
 name = "tools"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain development and deployment tools"
 
 [dependencies]
+# Sub-subprojects
+tools-analysis = { path = "analysis" }
+tools-automation = { path = "automation" }
+tools-benchmarking = { path = "benchmarking" }
+tools-configuration = { path = "configuration" }
+tools-debugging = { path = "debugging" }
+tools-deployment = { path = "deployment" }
+tools-development = { path = "development" }
+tools-optimization = { path = "optimization" }
+tools-profiling = { path = "profiling" }
+tools-testing = { path = "testing" }
+tools-utilities = { path = "utilities" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

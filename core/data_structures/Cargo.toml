@@ -1,0 +1,12 @@
+[package]
+name = "cc-core-data_structures"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain core data_structures functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

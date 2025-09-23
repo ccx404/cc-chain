@@ -1,6 +1,25 @@
 [package]
 name = "rpc"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain JSON-RPC interface"
 
 [dependencies]
+# Sub-subprojects
+rpc-client = { path = "client" }
+rpc-documentation = { path = "documentation" }
+rpc-errors = { path = "errors" }
+rpc-methods = { path = "methods" }
+rpc-monitoring = { path = "monitoring" }
+rpc-performance = { path = "performance" }
+rpc-protocol = { path = "protocol" }
+rpc-serialization = { path = "serialization" }
+rpc-server = { path = "server" }
+rpc-validation = { path = "validation" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

@@ -1,0 +1,12 @@
+[package]
+name = "api-authentication"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "API authentication functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

@@ -1,0 +1,12 @@
+[package]
+name = "explorer-monitoring"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "explorer monitoring functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

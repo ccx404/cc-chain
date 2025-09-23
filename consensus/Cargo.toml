@@ -10,6 +10,23 @@ keywords = ["blockchain", "consensus", "bft", "safety"]
 categories = ["cryptography", "algorithms"]
 
 [dependencies]
+# Sub-subprojects
+consensus-algorithm = { path = "algorithm" }
+consensus-safety = { path = "safety" }
+consensus-messages = { path = "messages" }
+consensus-voting = { path = "voting" }
+consensus-leaders = { path = "leaders" }
+consensus-networking = { path = "networking" }
+consensus-monitoring = { path = "monitoring" }
+consensus-recovery = { path = "recovery" }
+consensus-validation = { path = "validation" }
+consensus-performance = { path = "performance" }
+consensus-metrics = { path = "metrics" }
+consensus-timeouts = { path = "timeouts" }
+consensus-rounds = { path = "rounds" }
+consensus-views = { path = "views" }
+consensus-proposals = { path = "proposals" }
+
 # Local dependencies
 cc-core = { path = "../core" }
 

@@ -106,6 +106,136 @@ checksum = "b0674a1ddeecb70197781e945de4b3b8ffb61fa939a5597bcf48503737663100"
 [[package]]
 name = "api"
 version = "1.0.0"
+dependencies = [
+ "api-authentication",
+ "api-caching",
+ "api-documentation",
+ "api-endpoints",
+ "api-errors",
+ "api-handlers",
+ "api-middleware",
+ "api-monitoring",
+ "api-rate_limiting",
+ "api-responses",
+ "api-routing",
+ "api-serialization",
+ "api-validation",
+ "api-versioning",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-authentication"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-caching"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-documentation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-endpoints"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-errors"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-handlers"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-middleware"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-rate_limiting"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-responses"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-routing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-serialization"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "api-versioning"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "arrayref"
@@ -208,6 +338,100 @@ dependencies = [
 [[package]]
 name = "bridge"
 version = "1.0.0"
+dependencies = [
+ "bridge-chains",
+ "bridge-integration",
+ "bridge-messages",
+ "bridge-monitoring",
+ "bridge-performance",
+ "bridge-recovery",
+ "bridge-security",
+ "bridge-utilities",
+ "bridge-validation",
+ "bridge-validators",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-chains"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-integration"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-messages"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-recovery"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-security"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "bridge-validators"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "bumpalo"
@@ -239,14 +463,20 @@ dependencies = [
 
 [[package]]
 name = "cc-chain-examples"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
- "bincode",
- "cc-core",
- "chrono",
- "hex",
- "serde_json",
- "tokio",
+ "examples-advanced",
+ "examples-api",
+ "examples-basic",
+ "examples-consensus",
+ "examples-contracts",
+ "examples-documentation",
+ "examples-integration",
+ "examples-networking",
+ "examples-transactions",
+ "examples-tutorials",
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
@@ -256,6 +486,22 @@ dependencies = [
  "anyhow",
  "bincode",
  "blake3",
+ "cc-core-algorithms",
+ "cc-core-blockchain",
+ "cc-core-consensus_helpers",
+ "cc-core-cryptography",
+ "cc-core-data_structures",
+ "cc-core-error_handling",
+ "cc-core-metrics",
+ "cc-core-networking",
+ "cc-core-performance",
+ "cc-core-security",
+ "cc-core-serialization",
+ "cc-core-state_management",
+ "cc-core-storage",
+ "cc-core-transaction_processing",
+ "cc-core-utilities",
+ "cc-core-validation",
  "chrono",
  "criterion",
  "crossbeam",
@@ -276,6 +522,134 @@ dependencies = [
  "tokio-test",
  "tracing",
  "uuid",
+]
+
+[[package]]
+name = "cc-core-algorithms"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-blockchain"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-consensus_helpers"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-cryptography"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-data_structures"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-error_handling"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-metrics"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-networking"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-security"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-serialization"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-state_management"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-storage"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-transaction_processing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cc-core-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
@@ -372,6 +746,18 @@ dependencies = [
  "anyhow",
  "cc-core",
  "clap",
+ "cli-commands",
+ "cli-configuration",
+ "cli-documentation",
+ "cli-errors",
+ "cli-interface",
+ "cli-logging",
+ "cli-monitoring",
+ "cli-parsing",
+ "cli-performance",
+ "cli-testing",
+ "cli-utilities",
+ "cli-validation",
  "consensus",
  "hex",
  "networking",
@@ -383,6 +769,102 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-subscriber",
+]
+
+[[package]]
+name = "cli-commands"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-configuration"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-documentation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-errors"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-interface"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-logging"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-parsing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-testing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "cli-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
@@ -398,6 +880,21 @@ dependencies = [
  "anyhow",
  "bincode",
  "cc-core",
+ "consensus-algorithm",
+ "consensus-leaders",
+ "consensus-messages",
+ "consensus-metrics",
+ "consensus-monitoring",
+ "consensus-networking",
+ "consensus-performance",
+ "consensus-proposals",
+ "consensus-recovery",
+ "consensus-rounds",
+ "consensus-safety",
+ "consensus-timeouts",
+ "consensus-validation",
+ "consensus-views",
+ "consensus-voting",
  "criterion",
  "crossbeam",
  "dashmap",
@@ -409,6 +906,126 @@ dependencies = [
  "tokio",
  "tokio-test",
  "tracing",
+]
+
+[[package]]
+name = "consensus-algorithm"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-leaders"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-messages"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-metrics"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-networking"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-proposals"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-recovery"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-rounds"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-safety"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-timeouts"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-views"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "consensus-voting"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
@@ -609,6 +1226,109 @@ dependencies = [
 [[package]]
 name = "docs"
 version = "1.0.0"
+dependencies = [
+ "docs-api",
+ "docs-architecture",
+ "docs-configuration",
+ "docs-development",
+ "docs-generator",
+ "docs-guides",
+ "docs-markdown",
+ "docs-references",
+ "docs-specifications",
+ "docs-tutorials",
+ "docs-validation",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-api"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-architecture"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-configuration"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-development"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-generator"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-guides"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-markdown"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-references"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-specifications"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-tutorials"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "docs-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "ed25519"
@@ -648,8 +1368,173 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
+name = "examples-advanced"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-api"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-basic"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-consensus"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-contracts"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-documentation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-integration"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-networking"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-transactions"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "examples-tutorials"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
 name = "explorer"
 version = "1.0.0"
+dependencies = [
+ "explorer-backend",
+ "explorer-database",
+ "explorer-frontend",
+ "explorer-indexing",
+ "explorer-monitoring",
+ "explorer-performance",
+ "explorer-search",
+ "explorer-statistics",
+ "explorer-visualization",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-backend"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-database"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-frontend"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-indexing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-search"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-statistics"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "explorer-visualization"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "fiat-crypto"
@@ -678,6 +1563,100 @@ checksum = "05f29059c0c2090612e8d742178b0580d2dc940c837851ad723096f87af6663e"
 [[package]]
 name = "gateway"
 version = "1.0.0"
+dependencies = [
+ "gateway-authentication",
+ "gateway-authorization",
+ "gateway-caching",
+ "gateway-documentation",
+ "gateway-load_balancing",
+ "gateway-logging",
+ "gateway-metrics",
+ "gateway-monitoring",
+ "gateway-routing",
+ "gateway-security",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-authentication"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-authorization"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-caching"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-documentation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-load_balancing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-logging"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-metrics"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-routing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "gateway-security"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "generic-array"
@@ -790,6 +1769,91 @@ dependencies = [
 [[package]]
 name = "indexer"
 version = "1.0.0"
+dependencies = [
+ "indexer-aggregation",
+ "indexer-caching",
+ "indexer-database",
+ "indexer-filtering",
+ "indexer-monitoring",
+ "indexer-performance",
+ "indexer-queries",
+ "indexer-search",
+ "indexer-statistics",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-aggregation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-caching"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-database"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-filtering"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-queries"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-search"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "indexer-statistics"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "io-uring"
@@ -899,6 +1963,100 @@ checksum = "32a282da65faaf38286cf3be983213fcf1d2e2a58700e808f83f4ea9a4804bc0"
 [[package]]
 name = "metrics"
 version = "1.0.0"
+dependencies = [
+ "metrics-aggregation",
+ "metrics-alerts",
+ "metrics-analysis",
+ "metrics-collection",
+ "metrics-dashboard",
+ "metrics-export",
+ "metrics-performance",
+ "metrics-reporting",
+ "metrics-storage",
+ "metrics-visualization",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-aggregation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-alerts"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-analysis"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-collection"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-dashboard"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-export"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-reporting"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-storage"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "metrics-visualization"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "miniz_oxide"
@@ -923,6 +2081,91 @@ dependencies = [
 [[package]]
 name = "monitor"
 version = "1.0.0"
+dependencies = [
+ "monitor-alerts",
+ "monitor-analysis",
+ "monitor-diagnostics",
+ "monitor-health",
+ "monitor-logging",
+ "monitor-metrics",
+ "monitor-performance",
+ "monitor-reporting",
+ "monitor-utilities",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-alerts"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-analysis"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-diagnostics"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-health"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-logging"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-metrics"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-reporting"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "monitor-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "networking"
@@ -934,6 +2177,20 @@ dependencies = [
  "consensus",
  "dashmap",
  "hex",
+ "networking-compression",
+ "networking-connections",
+ "networking-discovery",
+ "networking-encryption",
+ "networking-gossip",
+ "networking-messaging",
+ "networking-monitoring",
+ "networking-p2p",
+ "networking-performance",
+ "networking-protocols",
+ "networking-routing",
+ "networking-security",
+ "networking-sync",
+ "networking-validation",
  "parking_lot",
  "serde",
  "serde_json",
@@ -941,6 +2198,118 @@ dependencies = [
  "tokio",
  "tracing",
  "uuid",
+]
+
+[[package]]
+name = "networking-compression"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-connections"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-discovery"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-encryption"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-gossip"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-messaging"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-p2p"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-protocols"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-routing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-security"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-sync"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "networking-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
@@ -1189,6 +2558,100 @@ checksum = "caf4aa5b0f434c91fe5c7f1ecb6a5ece2130b02ad2a590589dda5146df959001"
 [[package]]
 name = "rpc"
 version = "1.0.0"
+dependencies = [
+ "rpc-client",
+ "rpc-documentation",
+ "rpc-errors",
+ "rpc-methods",
+ "rpc-monitoring",
+ "rpc-performance",
+ "rpc-protocol",
+ "rpc-serialization",
+ "rpc-server",
+ "rpc-validation",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-client"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-documentation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-errors"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-methods"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-protocol"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-serialization"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-server"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "rpc-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "rustc-demangle"
@@ -1235,6 +2698,109 @@ checksum = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
 [[package]]
 name = "sdk"
 version = "1.0.0"
+dependencies = [
+ "sdk-accounts",
+ "sdk-bindings",
+ "sdk-client",
+ "sdk-contracts",
+ "sdk-documentation",
+ "sdk-examples",
+ "sdk-integration",
+ "sdk-testing",
+ "sdk-transactions",
+ "sdk-utilities",
+ "sdk-validation",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-accounts"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-bindings"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-client"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-contracts"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-documentation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-examples"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-integration"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-testing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-transactions"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "sdk-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "semver"
@@ -1383,9 +2949,144 @@ dependencies = [
  "parking_lot",
  "serde",
  "serde_json",
+ "storage-backup",
+ "storage-blocks",
+ "storage-caching",
+ "storage-compression",
+ "storage-database",
+ "storage-encryption",
+ "storage-indexing",
+ "storage-mempool",
+ "storage-optimization",
+ "storage-persistence",
+ "storage-recovery",
+ "storage-replication",
+ "storage-snapshots",
+ "storage-state",
+ "storage-transactions",
  "thiserror",
  "tokio",
  "tracing",
+]
+
+[[package]]
+name = "storage-backup"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-blocks"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-caching"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-compression"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-database"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-encryption"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-indexing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-mempool"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-optimization"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-persistence"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-recovery"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-replication"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-snapshots"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-state"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "storage-transactions"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
@@ -1414,6 +3115,91 @@ dependencies = [
 [[package]]
 name = "testing"
 version = "1.0.0"
+dependencies = [
+ "serde",
+ "testing-benchmarks",
+ "testing-fixtures",
+ "testing-helpers",
+ "testing-integration",
+ "testing-mocks",
+ "testing-performance",
+ "testing-stress",
+ "testing-unit",
+ "testing-utilities",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-benchmarks"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-fixtures"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-helpers"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-integration"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-mocks"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-stress"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-unit"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "testing-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "thiserror"
@@ -1512,6 +3298,109 @@ dependencies = [
 [[package]]
 name = "tools"
 version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+ "tools-analysis",
+ "tools-automation",
+ "tools-benchmarking",
+ "tools-configuration",
+ "tools-debugging",
+ "tools-deployment",
+ "tools-development",
+ "tools-optimization",
+ "tools-profiling",
+ "tools-testing",
+ "tools-utilities",
+]
+
+[[package]]
+name = "tools-analysis"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-automation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-benchmarking"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-configuration"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-debugging"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-deployment"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-development"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-optimization"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-profiling"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-testing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "tools-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "tracing"
@@ -1607,6 +3496,91 @@ dependencies = [
 [[package]]
 name = "validator"
 version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+ "validator-consensus",
+ "validator-monitoring",
+ "validator-network",
+ "validator-penalties",
+ "validator-performance",
+ "validator-rewards",
+ "validator-security",
+ "validator-staking",
+ "validator-utilities",
+]
+
+[[package]]
+name = "validator-consensus"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "validator-monitoring"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "validator-network"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "validator-penalties"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "validator-performance"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "validator-rewards"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "validator-security"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "validator-staking"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "validator-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "valuable"
@@ -1633,6 +3607,100 @@ dependencies = [
 [[package]]
 name = "wallet"
 version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+ "wallet-accounts",
+ "wallet-backup",
+ "wallet-interface",
+ "wallet-keys",
+ "wallet-recovery",
+ "wallet-security",
+ "wallet-signing",
+ "wallet-transactions",
+ "wallet-utilities",
+ "wallet-validation",
+]
+
+[[package]]
+name = "wallet-accounts"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-backup"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-interface"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-keys"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-recovery"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-security"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-signing"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-transactions"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-utilities"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "wallet-validation"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "thiserror",
+]
 
 [[package]]
 name = "wasi"

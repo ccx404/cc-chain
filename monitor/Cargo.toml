@@ -1,6 +1,24 @@
 [package]
 name = "monitor"
-version = "1.0.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CC Chain network monitoring tools"
 
 [dependencies]
+# Sub-subprojects
+monitor-alerts = { path = "alerts" }
+monitor-analysis = { path = "analysis" }
+monitor-diagnostics = { path = "diagnostics" }
+monitor-health = { path = "health" }
+monitor-logging = { path = "logging" }
+monitor-metrics = { path = "metrics" }
+monitor-performance = { path = "performance" }
+monitor-reporting = { path = "reporting" }
+monitor-utilities = { path = "utilities" }
+
+# Workspace dependencies
+serde = { workspace = true }
+thiserror = { workspace = true }

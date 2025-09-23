@@ -10,6 +10,24 @@ keywords = ["blockchain", "cryptography", "core"]
 categories = ["cryptography", "data-structures"]
 
 [dependencies]
+# Sub-subprojects
+cc-core-blockchain = { path = "blockchain" }
+cc-core-cryptography = { path = "cryptography" }
+cc-core-state_management = { path = "state_management" }
+cc-core-transaction_processing = { path = "transaction_processing" }
+cc-core-utilities = { path = "utilities" }
+cc-core-error_handling = { path = "error_handling" }
+cc-core-networking = { path = "networking" }
+cc-core-storage = { path = "storage" }
+cc-core-validation = { path = "validation" }
+cc-core-serialization = { path = "serialization" }
+cc-core-metrics = { path = "metrics" }
+cc-core-algorithms = { path = "algorithms" }
+cc-core-data_structures = { path = "data_structures" }
+cc-core-consensus_helpers = { path = "consensus_helpers" }
+cc-core-security = { path = "security" }
+cc-core-performance = { path = "performance" }
+
 # Core async runtime
 tokio = { workspace = true }
 

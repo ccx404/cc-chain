@@ -1,0 +1,12 @@
+[package]
+name = "docs-tutorials"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "docs tutorials functionality"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }

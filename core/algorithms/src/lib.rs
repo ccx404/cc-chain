@@ -1,0 +1,2 @@
+//! Core algorithms functionality
+

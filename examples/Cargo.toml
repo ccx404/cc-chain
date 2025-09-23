@@ -11,6 +11,10 @@ path = "basic_transaction.rs"
 name = "key_generation"
 path = "key_generation.rs"
 
+[[bin]]
+name = "cc_chain_demo"
+path = "cc_chain_demo.rs"
+
 [dependencies]
 cc-core = { path = "../core" }
 tokio = { workspace = true }

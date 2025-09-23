@@ -54,3 +54,7 @@ tokio-test = "0.4"
 [[bench]]
 name = "core_bench"
 harness = false
+
+[[bench]]
+name = "performance_comparison"
+harness = false

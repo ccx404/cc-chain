@@ -3,7 +3,7 @@ resolver = "2"
 members = [
     "core",
     "consensus", 
-    # "contracts",  # Temporarily disabled due to compilation issues
+    # "contracts",  # Advanced but has minor compilation issues
     "networking",
     "storage",
     "cli",
@@ -63,6 +63,11 @@ bytes = "1.10"
 hex = "0.4"
 rand = "0.8"
 chrono = { version = "0.4", features = ["serde"] }
+
+# WASM
+wasmtime = "27.0"
+wasmi = "0.32"
+wasmparser = "0.223"
 
 # Error handling
 thiserror = "1.0"

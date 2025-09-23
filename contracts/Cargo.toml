@@ -33,3 +33,14 @@ anyhow = { workspace = true }
 
 # Logging
 tracing = { workspace = true }
+
+# WASM runtime
+wasmtime = "27.0"
+wasmi = "0.32"
+wasmparser = "0.223"
+
+# Crypto
+blake3 = { workspace = true }
+
+# Additional utilities
+bytes = { workspace = true }

@@ -4069,6 +4069,7 @@ dependencies = [
 name = "testing-fixtures"
 version = "1.0.0"
 dependencies = [
+ "lazy_static",
  "serde",
  "thiserror 1.0.69",
 ]
@@ -4126,7 +4127,9 @@ name = "testing-utilities"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
+ "uuid",
 ]
 
 [[package]]

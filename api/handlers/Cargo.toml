@@ -8,5 +8,5 @@ repository.workspace = true
 description = "API handlers functionality"
 
 [dependencies]
-serde = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
 thiserror = { workspace = true }

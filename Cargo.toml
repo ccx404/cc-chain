@@ -3,7 +3,7 @@ resolver = "2"
 members = [
     "core",
     "consensus", 
-    # "contracts",  # Advanced but has minor compilation issues
+    "contracts",  # Advanced but has minor compilation issues
     "networking",
     "storage",
     "cli",

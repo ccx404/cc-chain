@@ -2,7 +2,7 @@
 //!
 //! This module provides event logging and filtering capabilities for smart contracts.
 
-use crate::Result;
+use cc_core::Result;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 

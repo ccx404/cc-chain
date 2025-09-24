@@ -3,8 +3,7 @@
 //! This module provides persistent storage for smart contracts with
 //! efficient key-value operations and state management.
 
-use crate::crypto::Hash;
-use crate::Result;
+use cc_core::{crypto::Hash, Result};
 use parking_lot::RwLock;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

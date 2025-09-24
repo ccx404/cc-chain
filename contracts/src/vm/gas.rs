@@ -3,7 +3,7 @@
 //! This module provides gas metering and billing for contract execution
 //! to prevent infinite loops and resource exhaustion attacks.
 
-use crate::{CCError, Result};
+use cc_core::{CCError, Result};
 use serde::{Deserialize, Serialize};
 
 /// Gas counter for tracking consumption during execution

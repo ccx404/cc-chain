@@ -816,24 +816,47 @@ async fn estimate_gas(
             .map_err(|_| CCError::InvalidInput("Invalid hex arguments".to_string()))?
     };
 
-    // let config = VMConfig::default();
-    // let executor = cc_chain::vm::ContractExecutor::new(config);
-
     let estimated_gas = match operation.as_str() {
         "deploy" => {
-            // Read bytecode if target is a file path
-            // let bytecode = if std::path::Path::new(&target).exists() {
-            //     std::fs::read(&target).map_err(|e| CCError::Io(e))?
-            // } else {
-            //     vec![0u8; 1000] // Default size for estimation
-            // };
-            // executor.estimate_deployment_gas(&bytecode, &args)
-            1000000 // Temporary gas estimate
+            // More sophisticated deployment cost estimation
+            let bytecode_size = if std::path::Path::new(&target).exists() {
+                std::fs::metadata(&target)
+                    .map(|m| m.len())
+                    .unwrap_or(1000)
+            } else {
+                1000 // Default size assumption
+            };
+            
+            info!("📏 Bytecode size: {} bytes", bytecode_size);
+            
+            // Base deployment costs
+            let base_cost = 21000u64; // Base transaction cost
+            let creation_cost = 32000u64; // Contract creation cost
+            let code_cost = bytecode_size * 200 / 1024; // ~200 gas per KB of code
+            let storage_cost = if args.is_empty() { 0 } else { 20000 }; // Constructor storage
+            
+            base_cost + creation_cost + code_cost + storage_cost
         }
         "call" => {
-            // let function_name = function.unwrap_or_else(|| "default".to_string());
-            // executor.estimate_call_gas(&target, &function_name, &args)
-            500000 // Temporary gas estimate
+            let function_name = function.as_ref().map(|f| f.as_str()).unwrap_or("unknown");
+            info!("🎯 Function: {}", function_name);
+            
+            // Base call cost
+            let base_call_cost = 21000u64;
+            
+            // Function-specific cost estimation
+            let function_cost = match function_name {
+                "init" | "constructor" => 50000u64,
+                "query" | "view" | "get" => 5000u64,   // Read-only functions
+                "set" | "update" => 25000u64,          // State-changing functions  
+                "transfer" | "send" => 35000u64,       // Transfer functions
+                _ => 15000u64,                         // Default function cost
+            };
+            
+            // Arguments processing cost
+            let args_cost = args.len() as u64 * 68; // ~68 gas per argument byte
+            
+            base_call_cost + function_cost + args_cost
         }
         _ => {
             return Err(CCError::InvalidInput(
@@ -843,21 +866,37 @@ async fn estimate_gas(
     };
 
     info!("✅ Estimated gas: {}", estimated_gas);
+    info!("🚀 Recommended limit: {} gas (120% of estimate)", (estimated_gas as f64 * 1.2) as u64);
 
-    // Show cost breakdown
+    // Show detailed cost breakdown
     if operation == "deploy" {
-        info!("💰 Cost breakdown:");
-        info!("   • Base deployment: {} gas", 50000);
-        info!("   • Code storage: {} gas", (args.len() as u64) * 68);
-        info!(
-            "   • Initialization: {} gas",
-            estimated_gas - 50000 - ((args.len() as u64) * 68)
-        );
+        info!("💰 Deployment cost breakdown:");
+        info!("   • Base transaction: {} gas", 21000);
+        info!("   • Contract creation: {} gas", 32000);
+        let code_cost = if std::path::Path::new(&target).exists() {
+            std::fs::metadata(&target).map(|m| m.len()).unwrap_or(1000) * 200 / 1024
+        } else {
+            200
+        };
+        info!("   • Code storage: {} gas", code_cost);
+        let storage_cost = if args.is_empty() { 0 } else { 20000 };
+        info!("   • Constructor storage: {} gas", storage_cost);
     } else {
-        info!("💰 Cost breakdown:");
+        info!("💰 Function call cost breakdown:");
         info!("   • Base call: {} gas", 21000);
-        info!("   • Function execution: {} gas", estimated_gas - 21000);
+        let function_name = function.as_ref().map(|f| f.as_str()).unwrap_or("unknown");
+        let function_cost = match function_name {
+            "init" | "constructor" => 50000u64,
+            "query" | "view" | "get" => 5000u64,
+            "set" | "update" => 25000u64,
+            "transfer" | "send" => 35000u64,
+            _ => 15000u64,
+        };
+        info!("   • Function execution: {} gas", function_cost);
+        info!("   • Arguments processing: {} gas", args.len() as u64 * 68);
     }
+    
+    info!("💡 Note: Actual gas usage may vary depending on execution path and storage operations");
 
     Ok(())
 }

@@ -3426,7 +3426,9 @@ dependencies = [
 name = "rpc-server"
 version = "1.0.0"
 dependencies = [
+ "rand",
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 

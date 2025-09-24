@@ -311,57 +311,360 @@ impl WasmRuntime {
         })
     }
 
-    /// Extract exported functions (simplified)
-    fn extract_exports(&self, _bytecode: &[u8]) -> Result<Vec<String>> {
-        // In a real implementation, this would parse the export section
-        // For now, return common function names
-        Ok(vec![
-            "init".to_string(),
-            "call".to_string(),
-            "query".to_string(),
-        ])
+    /// Extract exported functions from WASM bytecode
+    fn extract_exports(&self, bytecode: &[u8]) -> Result<Vec<String>> {
+        // Basic WASM parsing to find export section
+        let mut cursor = 8; // Skip magic number and version
+        let mut exports = Vec::new();
+        
+        while cursor < bytecode.len() {
+            if cursor + 5 > bytecode.len() {
+                break;
+            }
+            
+            let section_id = bytecode[cursor];
+            cursor += 1;
+            
+            // Read section size (simplified LEB128 decoding)
+            let mut section_size = 0u32;
+            let mut shift = 0;
+            loop {
+                if cursor >= bytecode.len() {
+                    break;
+                }
+                let byte = bytecode[cursor];
+                cursor += 1;
+                section_size |= ((byte & 0x7F) as u32) << shift;
+                if (byte & 0x80) == 0 {
+                    break;
+                }
+                shift += 7;
+                if shift >= 32 {
+                    return Err(CCError::InvalidInput("Invalid LEB128 encoding".to_string()));
+                }
+            }
+            
+            if section_id == 7 { // Export section
+                let section_end = cursor + section_size as usize;
+                if section_end > bytecode.len() {
+                    break;
+                }
+                
+                // Parse export entries
+                if cursor < bytecode.len() {
+                    let export_count = bytecode[cursor];
+                    cursor += 1;
+                    
+                    for _ in 0..export_count {
+                        if cursor >= section_end {
+                            break;
+                        }
+                        
+                        // Read name length
+                        if cursor >= bytecode.len() {
+                            break;
+                        }
+                        let name_len = bytecode[cursor] as usize;
+                        cursor += 1;
+                        
+                        // Read name
+                        if cursor + name_len > bytecode.len() || cursor + name_len > section_end {
+                            break;
+                        }
+                        let name = String::from_utf8_lossy(&bytecode[cursor..cursor + name_len]);
+                        cursor += name_len;
+                        
+                        // Skip kind and index
+                        cursor += 2;
+                        
+                        exports.push(name.to_string());
+                    }
+                }
+                break;
+            } else {
+                cursor += section_size as usize;
+            }
+        }
+        
+        // If no exports found, return default functions
+        if exports.is_empty() {
+            exports = vec![
+                "init".to_string(),
+                "call".to_string(),
+                "query".to_string(),
+            ];
+        }
+        
+        Ok(exports)
     }
 
-    /// Extract memory requirements (simplified)
-    fn extract_memory_pages(&self, _bytecode: &[u8]) -> Result<u32> {
-        // In a real implementation, this would parse the memory section
-        // Default to 1 page (64KB)
+    /// Extract memory requirements from WASM bytecode
+    fn extract_memory_pages(&self, bytecode: &[u8]) -> Result<u32> {
+        // Basic WASM parsing to find memory section
+        let mut cursor = 8; // Skip magic number and version
+        
+        while cursor < bytecode.len() {
+            if cursor + 5 > bytecode.len() {
+                break;
+            }
+            
+            let section_id = bytecode[cursor];
+            cursor += 1;
+            
+            // Read section size (simplified LEB128 decoding)
+            let mut section_size = 0u32;
+            let mut shift = 0;
+            loop {
+                if cursor >= bytecode.len() {
+                    break;
+                }
+                let byte = bytecode[cursor];
+                cursor += 1;
+                section_size |= ((byte & 0x7F) as u32) << shift;
+                if (byte & 0x80) == 0 {
+                    break;
+                }
+                shift += 7;
+                if shift >= 32 {
+                    return Err(CCError::InvalidInput("Invalid LEB128 encoding".to_string()));
+                }
+            }
+            
+            if section_id == 5 { // Memory section
+                let section_end = cursor + section_size as usize;
+                if section_end > bytecode.len() {
+                    break;
+                }
+                
+                // Parse memory entries
+                if cursor < bytecode.len() {
+                    let memory_count = bytecode[cursor];
+                    cursor += 1;
+                    
+                    if memory_count > 0 && cursor < section_end {
+                        // Read memory limits
+                        let limits_type = bytecode[cursor];
+                        cursor += 1;
+                        
+                        if limits_type == 0 || limits_type == 1 {
+                            // Read initial size (minimum pages)
+                            let mut initial_size = 0u32;
+                            let mut shift = 0;
+                            loop {
+                                if cursor >= bytecode.len() || cursor >= section_end {
+                                    break;
+                                }
+                                let byte = bytecode[cursor];
+                                cursor += 1;
+                                initial_size |= ((byte & 0x7F) as u32) << shift;
+                                if (byte & 0x80) == 0 {
+                                    break;
+                                }
+                                shift += 7;
+                                if shift >= 32 {
+                                    return Err(CCError::InvalidInput("Invalid LEB128 encoding".to_string()));
+                                }
+                            }
+                            
+                            return Ok(initial_size.max(1)); // At least 1 page
+                        }
+                    }
+                }
+                break;
+            } else {
+                cursor += section_size as usize;
+            }
+        }
+        
+        // Default to 1 page (64KB) if no memory section found
         Ok(1)
     }
 
-    /// Simulate contract execution (simplified)
+    /// Enhanced contract execution simulation
     fn simulate_execution(
         &self,
-        _module: &WasmModule,
+        module: &WasmModule,
         function_name: &str,
         args: Vec<u8>,
         host_functions: &mut HostFunctions,
     ) -> Result<ExecutionResult> {
         // Consume base execution gas
         host_functions.consume_gas(GasOperation::Instruction, 100)?;
-
-        // Simulate different function behaviors
+        
+        // Check gas limits
+        let remaining_gas = host_functions.gas_used();
+        if remaining_gas > host_functions.context.gas_limit {
+            return Ok(ExecutionResult {
+                return_value: Vec::new(),
+                gas_used: host_functions.gas_used(),
+                success: false,
+                error: Some("Out of gas".to_string()),
+                logs: host_functions.logs.clone(),
+                state_changes: host_functions.state_changes.clone(),
+            });
+        }
+        
+        // Simulate different function behaviors based on function name and args
         let (success, return_value, error) = match function_name {
             "init" => {
-                // Constructor function
-                host_functions.consume_gas(GasOperation::StorageWrite, 1)?;
+                // Constructor function - initialize contract state
+                host_functions.consume_gas(GasOperation::StorageWrite, 2)?;
+                
+                // Parse constructor arguments if any
+                let initial_value = if !args.is_empty() && args.len() >= 8 {
+                    u64::from_le_bytes([
+                        args[0], args[1], args[2], args[3],
+                        args[4], args[5], args[6], args[7]
+                    ])
+                } else {
+                    0
+                };
+                
                 host_functions.set_storage(b"initialized".to_vec(), b"true".to_vec())?;
+                host_functions.set_storage(b"owner".to_vec(), host_functions.context.caller.as_ref().unwrap_or(&"unknown".to_string()).as_bytes().to_vec())?;
+                host_functions.set_storage(b"value".to_vec(), initial_value.to_le_bytes().to_vec())?;
+                
+                host_functions.emit_log(
+                    vec![b"ContractInitialized".to_vec()],
+                    serde_json::to_vec(&serde_json::json!({
+                        "initial_value": initial_value,
+                        "owner": host_functions.context.caller
+                    })).unwrap_or_default()
+                );
+                
                 (true, b"init_success".to_vec(), None)
             }
             "call" => {
-                // Regular function call
+                // Regular function call - process based on arguments
                 host_functions.consume_gas(GasOperation::StorageRead, 1)?;
-                let result = format!("processed_{}", args.len());
-                (true, result.into_bytes(), None)
+                
+                if args.is_empty() {
+                    return Ok(ExecutionResult {
+                        return_value: Vec::new(),
+                        gas_used: host_functions.gas_used(),
+                        success: false,
+                        error: Some("No function selector provided".to_string()),
+                        logs: host_functions.logs.clone(),
+                        state_changes: host_functions.state_changes.clone(),
+                    });
+                }
+                
+                // Simple function selector based on first byte
+                match args[0] {
+                    0x01 => {
+                        // Set value function
+                        host_functions.consume_gas(GasOperation::StorageWrite, 1)?;
+                        
+                        let new_value = if args.len() >= 9 {
+                            u64::from_le_bytes([
+                                args[1], args[2], args[3], args[4],
+                                args[5], args[6], args[7], args[8]
+                            ])
+                        } else {
+                            return Ok(ExecutionResult {
+                                return_value: Vec::new(),
+                                gas_used: host_functions.gas_used(),
+                                success: false,
+                                error: Some("Invalid arguments for set_value".to_string()),
+                                logs: host_functions.logs.clone(),
+                                state_changes: host_functions.state_changes.clone(),
+                            });
+                        };
+                        
+                        host_functions.set_storage(b"value".to_vec(), new_value.to_le_bytes().to_vec())?;
+                        host_functions.emit_log(
+                            vec![b"ValueChanged".to_vec()],
+                            new_value.to_le_bytes().to_vec()
+                        );
+                        
+                        (true, b"value_set".to_vec(), None)
+                    }
+                    0x02 => {
+                        // Get value function
+                        host_functions.consume_gas(GasOperation::StorageRead, 1)?;
+                        
+                        let value = host_functions.get_storage(b"value")
+                            .unwrap_or_else(|| vec![0; 8]);
+                        
+                        (true, value, None)
+                    }
+                    0x03 => {
+                        // Transfer function (simplified)
+                        host_functions.consume_gas(GasOperation::StorageRead, 2)?;
+                        host_functions.consume_gas(GasOperation::StorageWrite, 2)?;
+                        
+                        if args.len() < 41 { // 1 + 32 (address) + 8 (amount)
+                            return Ok(ExecutionResult {
+                                return_value: Vec::new(),
+                                gas_used: host_functions.gas_used(),
+                                success: false,
+                                error: Some("Invalid arguments for transfer".to_string()),
+                                logs: host_functions.logs.clone(),
+                                state_changes: host_functions.state_changes.clone(),
+                            });
+                        }
+                        
+                        let to_address = hex::encode(&args[1..33]);
+                        let amount = u64::from_le_bytes([
+                            args[33], args[34], args[35], args[36],
+                            args[37], args[38], args[39], args[40]
+                        ]);
+                        
+                        // Emit transfer event
+                        host_functions.emit_log(
+                            vec![
+                                b"Transfer".to_vec(),
+                                host_functions.context.caller.as_ref().unwrap_or(&"unknown".to_string()).as_bytes().to_vec(),
+                                to_address.as_bytes().to_vec()
+                            ],
+                            amount.to_le_bytes().to_vec()
+                        );
+                        
+                        (true, b"transfer_success".to_vec(), None)
+                    }
+                    _ => {
+                        (false, Vec::new(), Some("Unknown function selector".to_string()))
+                    }
+                }
             }
             "query" => {
                 // Read-only function
                 host_functions.consume_gas(GasOperation::StorageRead, 2)?;
-                (true, b"query_result".to_vec(), None)
+                
+                let is_initialized = host_functions.get_storage(b"initialized").is_some();
+                let owner = host_functions.get_storage(b"owner").unwrap_or_default();
+                let value = host_functions.get_storage(b"value").unwrap_or_else(|| vec![0; 8]);
+                
+                let result = serde_json::to_vec(&serde_json::json!({
+                    "initialized": is_initialized,
+                    "owner": String::from_utf8_lossy(&owner),
+                    "value": u64::from_le_bytes([
+                        value.get(0).copied().unwrap_or(0),
+                        value.get(1).copied().unwrap_or(0),
+                        value.get(2).copied().unwrap_or(0),
+                        value.get(3).copied().unwrap_or(0),
+                        value.get(4).copied().unwrap_or(0),
+                        value.get(5).copied().unwrap_or(0),
+                        value.get(6).copied().unwrap_or(0),
+                        value.get(7).copied().unwrap_or(0),
+                    ])
+                })).unwrap_or_else(|_| b"query_error".to_vec());
+                
+                (true, result, None)
             }
-            _ => (false, Vec::new(), Some("Unknown function".to_string())),
+            _ => {
+                // Check if function exists in the module
+                if module.exports.contains(&function_name.to_string()) {
+                    // Simulate execution of unknown but existing function
+                    host_functions.consume_gas(GasOperation::Instruction, 50)?;
+                    let result = format!("executed_{}_{}_bytes", function_name, args.len());
+                    (true, result.into_bytes(), None)
+                } else {
+                    (false, Vec::new(), Some(format!("Function '{}' not found in contract", function_name)))
+                }
+            }
         };
-
+        
         Ok(ExecutionResult {
             return_value,
             gas_used: host_functions.gas_used(),

@@ -3402,6 +3402,7 @@ name = "rpc-monitoring"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -3418,6 +3419,7 @@ name = "rpc-protocol"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -3426,6 +3428,7 @@ name = "rpc-serialization"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 

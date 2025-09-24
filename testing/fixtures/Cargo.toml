@@ -10,3 +10,4 @@ description = "testing fixtures functionality"
 [dependencies]
 serde = { workspace = true }
 thiserror = { workspace = true }
+lazy_static = "1.5"

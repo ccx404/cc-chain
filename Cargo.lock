@@ -3366,7 +3366,9 @@ name = "rpc-client"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
+ "tokio",
 ]
 
 [[package]]
@@ -3374,6 +3376,7 @@ name = "rpc-documentation"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -3382,6 +3385,7 @@ name = "rpc-errors"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -3390,6 +3394,7 @@ name = "rpc-methods"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -3398,6 +3403,7 @@ name = "rpc-monitoring"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -3414,6 +3420,7 @@ name = "rpc-protocol"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -3422,6 +3429,7 @@ name = "rpc-serialization"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -3440,6 +3448,7 @@ name = "rpc-validation"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 

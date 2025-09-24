@@ -152,6 +152,7 @@ name = "api-authentication"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 
@@ -183,7 +184,9 @@ dependencies = [
 name = "api-errors"
 version = "1.0.0"
 dependencies = [
+ "chrono",
  "serde",
+ "serde_json",
  "thiserror 1.0.69",
 ]
 

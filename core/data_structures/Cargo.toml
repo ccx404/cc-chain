@@ -10,3 +10,4 @@ description = "CC Chain core data_structures functionality"
 [dependencies]
 serde = { workspace = true }
 thiserror = { workspace = true }
+sha2 = { workspace = true }

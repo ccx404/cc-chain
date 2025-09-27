@@ -672,7 +672,9 @@ dependencies = [
 name = "cc-core-blockchain"
 version = "1.0.0"
 dependencies = [
+ "hex",
  "serde",
+ "sha2",
  "thiserror 1.0.69",
 ]
 
@@ -688,7 +690,12 @@ dependencies = [
 name = "cc-core-cryptography"
 version = "1.0.0"
 dependencies = [
+ "blake3",
+ "ed25519-dalek",
+ "hex",
+ "rand",
  "serde",
+ "sha2",
  "thiserror 1.0.69",
 ]
 
@@ -697,6 +704,7 @@ name = "cc-core-data_structures"
 version = "1.0.0"
 dependencies = [
  "serde",
+ "sha2",
  "thiserror 1.0.69",
 ]
 
@@ -706,6 +714,7 @@ version = "1.0.0"
 dependencies = [
  "serde",
  "thiserror 1.0.69",
+ "tracing",
 ]
 
 [[package]]
@@ -752,7 +761,9 @@ dependencies = [
 name = "cc-core-state_management"
 version = "1.0.0"
 dependencies = [
+ "hex",
  "serde",
+ "sha2",
  "thiserror 1.0.69",
 ]
 
@@ -768,7 +779,9 @@ dependencies = [
 name = "cc-core-transaction_processing"
 version = "1.0.0"
 dependencies = [
+ "hex",
  "serde",
+ "sha2",
  "thiserror 1.0.69",
 ]
 
@@ -776,8 +789,12 @@ dependencies = [
 name = "cc-core-utilities"
 version = "1.0.0"
 dependencies = [
+ "hex",
+ "rand",
  "serde",
+ "sha2",
  "thiserror 1.0.69",
+ "uuid",
 ]
 
 [[package]]

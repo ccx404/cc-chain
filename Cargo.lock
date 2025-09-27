@@ -714,6 +714,7 @@ version = "1.0.0"
 dependencies = [
  "serde",
  "thiserror 1.0.69",
+ "tracing",
 ]
 
 [[package]]
@@ -788,8 +789,12 @@ dependencies = [
 name = "cc-core-utilities"
 version = "1.0.0"
 dependencies = [
+ "hex",
+ "rand",
  "serde",
+ "sha2",
  "thiserror 1.0.69",
+ "uuid",
 ]
 
 [[package]]
